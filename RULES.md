@@ -60,6 +60,7 @@ Use **Conventional Commits** style:
 - `pages/` → Page-level components (route views)
 - `hooks/` → Custom React hooks
 - `utils/` → Helper functions and utilities
+- `variables/` → constants, config values, enums, breakpoints, colors, etc. (e.g., `export const API_BASE_URL = 'https://api.example.com';`)
 - `services/` → API calls and external integrations
 - `contexts/` → React Context providers and related logic
 - `models/` → TypeScript interfaces and types
