@@ -47,3 +47,35 @@ Use **Conventional Commits** style:
 **Examples:**
 - `Feat: Add login with Google (#123)`  
 - `Fix: Correct navbar layout (#456)`
+
+
+## File Structuring Rules (React + TypeScript)
+
+---
+
+## 4️⃣ Inside `src/`
+- `assets/` → Images, fonts, global assets
+- `components/` → Reusable UI components
+-  `styled/` → Styled component definitions for encapsulated, component-scoped styling
+- `pages/` → Page-level components (route views)
+- `hooks/` → Custom React hooks
+- `utils/` → Helper functions and utilities
+- `services/` → API calls and external integrations
+- `contexts/` → React Context providers and related logic
+- `models/` → TypeScript interfaces and types
+- `styles/` → Global styles and themes
+- `main.tsx` → Application entry point
+- `App.tsx` → Root app component
+
+---
+
+## 5️⃣ File Naming
+- **Components:** `ComponentName.tsx`
+- **Hooks:** `useHookName.ts`
+- **Utilities:** `function-name.ts`
+- **Services:** `service-name.ts`
+- **Contexts:** `ContextNameContext.tsx`
+- **Models:** `model-name.ts`
+- **Styles:** `component-name.css` (or `.scss`)
+
+---
