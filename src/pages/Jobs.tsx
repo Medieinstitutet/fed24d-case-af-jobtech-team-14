@@ -1,3 +1,9 @@
+import { JobList } from '../components/JobList'
+
 export const Jobs = () => {
-  return <h2>Jobs</h2>
+  return (
+    <>
+      <JobList />
+    </>
+  )
 }
