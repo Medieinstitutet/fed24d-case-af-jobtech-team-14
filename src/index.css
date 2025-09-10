@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css';
+@import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
