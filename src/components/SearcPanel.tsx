@@ -1,0 +1,65 @@
+import '../style/SearchPanel.css'
+
+import {
+  FormInputSearchVariation,
+  FormInputType,
+  LayoutColumnsElement,
+  LayoutColumnsVariation,
+  TypographyVariation,
+} from '@digi/arbetsformedlingen'
+import {
+  DigiFormInputSearch,
+  DigiLayoutBlock,
+  DigiLayoutColumns,
+  DigiTypography,
+} from '@digi/arbetsformedlingen-react'
+import { ModalBtn } from './DropdownBtn'
+import { useState } from 'react'
+
+export const SearchPanel = () => {
+  const [openBtn, setOpenBtn] = useState<string | null>(null)
+
+  return (
+    <>
+      <DigiLayoutBlock af-variation="primary">
+        <DigiLayoutColumns
+          afElement={LayoutColumnsElement.DIV}
+          afVariation={LayoutColumnsVariation.ONE}
+        >
+          <DigiTypography afVariation={TypographyVariation.SMALL}>
+            <h2>Platsbanken</h2>
+            <h3>Sök på ett eller flera ord</h3>
+          </DigiTypography>
+          <DigiTypography />
+          <DigiFormInputSearch
+            afLabel="Skriv t.ex. målare Malmö"
+            afVariation={FormInputSearchVariation.MEDIUM}
+            afType={FormInputType.SEARCH}
+            afButtonText="Sök"
+          ></DigiFormInputSearch>
+          <DigiLayoutColumns
+            className="btn-container"
+            afElement={LayoutColumnsElement.DIV}
+            afVariation={LayoutColumnsVariation.THREE}
+          >
+            <ModalBtn
+              label="Yrke"
+              isOpen={openBtn === 'btn1'}
+              onToggle={() => setOpenBtn(openBtn === 'btn1' ? null : 'btn1')}
+            />
+            <ModalBtn
+              label="Ort"
+              isOpen={openBtn === 'btn2'}
+              onToggle={() => setOpenBtn(openBtn === 'btn2' ? null : 'btn2')}
+            />
+            <ModalBtn
+              label="Filter"
+              isOpen={openBtn === 'btn3'}
+              onToggle={() => setOpenBtn(openBtn === 'btn3' ? null : 'btn3')}
+            />
+          </DigiLayoutColumns>
+        </DigiLayoutColumns>
+      </DigiLayoutBlock>
+    </>
+  )
+}

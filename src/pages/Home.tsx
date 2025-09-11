@@ -1,3 +1,5 @@
+import { SearchPanel } from '../components/SearcPanel'
+
 export const Home = () => {
-  return <h2>Home</h2>
+  return <SearchPanel></SearchPanel>
 }
