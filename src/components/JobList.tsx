@@ -1,50 +1,94 @@
-import {
-  ButtonSize,
-  ButtonVariation,
-  LayoutBlockVariation,
-  TypographyVariation,
-} from '@digi/arbetsformedlingen'
-import {
-  DigiButton,
-  DigiIconHeart,
-  DigiLayoutBlock,
-  DigiTypography,
-} from '@digi/arbetsformedlingen-react'
+import { JobListCard } from './JobListCard'
+
+export type IJob = {
+  id: number
+  title: string
+  location: string
+  role: string
+  publication_date: string
+}
 
 export const JobList = () => {
+  const jobs: IJob[] = [
+    {
+      id: 1,
+      title: 'Systemutvecklare',
+      location: 'Stockholm',
+      role: 'Backend Developer',
+      publication_date: '2025-09-01',
+    },
+    {
+      id: 2,
+      title: 'UX-designer',
+      location: 'Göteborg',
+      role: 'User Experience Designer',
+      publication_date: '2025-08-28',
+    },
+    {
+      id: 3,
+      title: 'Projektledare IT',
+      location: 'Malmö',
+      role: 'Project Manager',
+      publication_date: '2025-09-05',
+    },
+    {
+      id: 4,
+      title: 'Data Scientist',
+      location: 'Uppsala',
+      role: 'Statistiker/AI',
+      publication_date: '2025-09-03',
+    },
+    {
+      id: 5,
+      title: 'Ekonom',
+      location: 'Örebro',
+      role: 'Controller',
+      publication_date: '2025-08-30',
+    },
+    {
+      id: 6,
+      title: 'Handläggare',
+      location: 'Luleå',
+      role: 'Administratör',
+      publication_date: '2025-09-07',
+    },
+    {
+      id: 7,
+      title: 'Lärare i matematik',
+      location: 'Västerås',
+      role: 'Gymnasielärare',
+      publication_date: '2025-09-02',
+    },
+    {
+      id: 8,
+      title: 'HR-specialist',
+      location: 'Linköping',
+      role: 'HR Partner',
+      publication_date: '2025-09-06',
+    },
+    {
+      id: 9,
+      title: 'Sjuksköterska',
+      location: 'Karlstad',
+      role: 'Vård och omsorg',
+      publication_date: '2025-08-29',
+    },
+    {
+      id: 10,
+      title: 'Front End Developer',
+      location: 'Helsingborg',
+      role: 'React/JavaScript',
+      publication_date: '2025-09-04',
+    },
+  ]
+
   return (
-    <>
-      <section className="job-list-section">
-        <DigiLayoutBlock afVariation={LayoutBlockVariation.PRIMARY}>
-          <div className="job-list-container">
-            <div className="job-list-text">
-              <DigiTypography afVariation={TypographyVariation.SMALL}>
-                <h2>Handläggare med intresse för Programming</h2>
-              </DigiTypography>
-              <DigiTypography afVariation={TypographyVariation.SMALL}>
-                <p>Socialstyrelsen - Stockholm</p>
-              </DigiTypography>
-              <DigiTypography afVariation={TypographyVariation.SMALL}>
-                <p>Statistiker</p>
-              </DigiTypography>
-              <DigiTypography afVariation={TypographyVariation.SMALL}>
-                <p>Publicerad 2 september kl 16.19</p>
-              </DigiTypography>
-              {/* </DigiTypography> */}
-            </div>
-            <div className="jobb-actions">
-              <DigiButton
-                afSize={ButtonSize.MEDIUM}
-                afVariation={ButtonVariation.FUNCTION}
-                afFullWidth={false}
-              >
-                <DigiIconHeart slot="icon" />
-                Spara
-              </DigiButton>
-            </div>
-          </div>
-        </DigiLayoutBlock>
-      </section>
-    </>
+    <ul>
+      {jobs.map(job => (
+        <li key={job.id}>
+          <JobListCard job={job} />
+        </li>
+      ))}
+    </ul>
   )
 }
