@@ -1,0 +1,108 @@
+@import '../style/colors.css';
+
+.sc-digi-layout-container-h .digi-layout-container.sc-digi-layout-container {
+  --digi--layout-container--width: 40rem;
+  --digi--layout-container--gutter: var(--digi--container-gutter--small);
+  background-color: var(--color-primary);
+  padding: 1rem;
+  margin-top: 10rem;
+  position: relative;
+}
+
+/* .sc-digi-layout-container-h .digi-layout-container.sc-digi-layout-container {
+  position: relative;
+} */
+
+.digi-form-input--button-variation-primary
+  .digi-form-input__input-wrapper.sc-digi-form-input-s
+  > [slot^='button']
+  button,
+.digi-form-input__input-wrapper .sc-digi-form-input-s,
+.sc-digi-icon-search-h svg.sc-digi-icon-search > [slot^='button'] button,
+.sc-digi-icon-search-h svg.sc-digi-icon-search {
+  color: black;
+  width: 6rem;
+}
+
+.sc-digi-form-label-h .digi-form-label.sc-digi-form-label {
+  color: white;
+}
+
+h2,
+h3 {
+  color: white;
+}
+
+.digi-button.sc-digi-button[aria-pressed='true'],
+.digi-button.sc-digi-button:hover {
+  background-color: var(--color-button);
+  color: black;
+}
+
+.sc-digi-button-h .digi-button--size-medium.sc-digi-button:hover,
+.sc-digi-button-h .digi-button--size-medium.sc-digi-button:active {
+  background-color: #b4a60c;
+}
+
+.btn-wrap .digi-button.sc-digi-button[aria-pressed='true'],
+.btn-wrap .digi-button.sc-digi-button:hover {
+  background: white;
+  color: black;
+}
+
+.digi-form-input__input.sc-digi-form-input {
+  z-index: 10;
+}
+
+.sc-digi-layout-columns-h .digi-layout-columns.sc-digi-layout-columns {
+  grid-row-gap: 0;
+}
+
+.sc-digi-layout-columns-h .digi-layout-columns--three.sc-digi-layout-columns {
+  --digi--layout-columns--gap--column: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 7rem));
+  justify-items: center;
+  align-items: center;
+  /* position: relative; */
+}
+
+.sc-digi-button-h .digi-button--size-medium.sc-digi-button {
+  background-color: var(--color-button);
+}
+
+.dropdows-layout {
+  background-color: red;
+  border-radius: 0.4rem;
+  width: 100%;
+  max-width: 45rem;
+  height: 30rem;
+  position: absolute;
+  top: 14rem;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+@media (min-width: 576px) {
+}
+
+.btn-wrap {
+  width: max-content;
+}
+
+@media (min-width: 768px) {
+  .dropdows-layout {
+    left: 0;
+    transform: translate(0);
+  }
+}
+
+@media (min-width: 992px) {
+  .btn-wrap {
+    position: relative;
+  }
+
+  .dropdows-layout {
+    top: 2.8rem;
+    width: 30rem;
+  }
+}
