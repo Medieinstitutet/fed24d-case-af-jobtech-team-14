@@ -23,6 +23,11 @@
   /* margin-bottom: 1rem; */
 }
 
+.sorting-button {
+  display: flex;
+  justify-content: right;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
