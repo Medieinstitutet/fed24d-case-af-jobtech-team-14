@@ -4,5 +4,5 @@
 @import './style//colors.css';
 
 :root {
-  --digi--color--background--primary: var(--color-card-dark);
+  --digi--color--background--primary: #00000000;
 }

@@ -12,7 +12,11 @@ import {
 } from '@digi/arbetsformedlingen-react'
 import type { IJob } from './JobList'
 
-export const JobListCard = ({ job }: { job: IJob }) => {
+interface JobListCardProps {
+  job: IJob
+}
+
+export const JobListCard = ({ job }: JobListCardProps) => {
   return (
     <>
       <section className="job-list-section">

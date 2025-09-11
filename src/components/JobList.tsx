@@ -84,9 +84,19 @@ export const JobList = () => {
 
   return (
     <ul>
-      {jobs.map(job => (
-        <li key={job.id}>
-          <JobListCard job={job} />
+      {jobs.map((job, index) => (
+        <li
+          key={job.id}
+          style={{
+            backgroundColor:
+              index % 2 === 0
+                ? 'var(--color-card-dark)'
+                : 'var(--color-card-light)',
+          }}
+        >
+          <div>
+            <JobListCard job={job} />
+          </div>
         </li>
       ))}
     </ul>
