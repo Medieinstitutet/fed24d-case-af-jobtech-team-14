@@ -1,0 +1,20 @@
+.job-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.job-list-text {
+  flex: 1;
+}
+
+.jobb-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sorting-button {
+  display: flex;
+  justify-content: right;
+}

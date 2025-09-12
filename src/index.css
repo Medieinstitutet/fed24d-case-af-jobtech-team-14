@@ -2,7 +2,11 @@
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css';
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
 @import './style//colors.css';
+@import './style//JobList.css';
+@import './style//LatestSearchAndSavedAdsButtons.css';
 
 :root {
   --digi--color--background--primary: #00000000;
+  --digi--color--background--inverted-1: var(--color-primary);
+  --digi--color--border--secondary: #00000000;
 }
