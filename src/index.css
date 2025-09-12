@@ -8,4 +8,5 @@
 :root {
   --digi--color--background--primary: #00000000;
   --digi--color--background--inverted-1: var(--color-primary);
+  --digi--color--border--secondary: #00000000;
 }
