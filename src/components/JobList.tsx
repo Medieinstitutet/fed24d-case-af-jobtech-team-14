@@ -96,7 +96,7 @@ export const JobList = () => {
           <DigiIconChevronDown slot="icon" />
         </DigiButton>
       </div>
-      <ul>
+      <ul className="af-joblist-scope">
         {jobs.map((job, index) => (
           <li
             key={job.id}

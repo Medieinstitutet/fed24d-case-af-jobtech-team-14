@@ -14,16 +14,18 @@ export const JobListButton = ({
 }: jobListButtonProps) => {
   return (
     <>
-      <DigiButton
-        afSize={ButtonSize.LARGE}
-        afVariation={ButtonVariation.PRIMARY}
-        afFullWidth={true}
-      >
-        {icon}
-        {text}
-        {iconSecondary}
-        {/* <DigiIconArrowDown slot="icon-secondary" /> */}
-      </DigiButton>
+      <div className="af-joblist-scope">
+        <DigiButton
+          afSize={ButtonSize.LARGE}
+          afVariation={ButtonVariation.PRIMARY}
+          afFullWidth={true}
+        >
+          {icon}
+          {text}
+          {iconSecondary}
+          {/* <DigiIconArrowDown slot="icon-secondary" /> */}
+        </DigiButton>
+      </div>
     </>
   )
 }
