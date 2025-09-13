@@ -1,4 +1,4 @@
-import '../style/SearchPanel.css'
+// import '../style/SearchPanel.css'
 
 import { ButtonSize, ButtonVariation } from '@digi/arbetsformedlingen'
 import {
