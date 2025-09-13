@@ -20,11 +20,12 @@ export const SearchPanel = () => {
   const [openBtn, setOpenBtn] = useState<string | null>(null)
 
   return (
-    <>
-      <DigiLayoutBlock af-variation="primary">
+    <div className="search-panel">
+      <DigiLayoutBlock af-variation="primary" className="block">
         <DigiLayoutColumns
           afElement={LayoutColumnsElement.DIV}
           afVariation={LayoutColumnsVariation.ONE}
+          className="layout-container"
         >
           <DigiTypography afVariation={TypographyVariation.SMALL}>
             <h2>Platsbanken</h2>
@@ -36,6 +37,7 @@ export const SearchPanel = () => {
             afVariation={FormInputSearchVariation.MEDIUM}
             afType={FormInputType.SEARCH}
             afButtonText="Sök"
+            className="searchbar"
           ></DigiFormInputSearch>
           <DigiLayoutColumns
             className="btn-container"
@@ -60,6 +62,6 @@ export const SearchPanel = () => {
           </DigiLayoutColumns>
         </DigiLayoutColumns>
       </DigiLayoutBlock>
-    </>
+    </div>
   )
 }

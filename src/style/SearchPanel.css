@@ -1,6 +1,12 @@
 @import '../style/colors.css';
 
-.sc-digi-layout-container-h .digi-layout-container.sc-digi-layout-container {
+.search-panel .block {
+  --digi--layout-block--background--primary: var(--color-bg);
+}
+
+.search-panel
+  .sc-digi-layout-container-h
+  .digi-layout-container.sc-digi-layout-container {
   --digi--layout-container--width: 40rem;
   --digi--layout-container--gutter: var(--digi--container-gutter--small);
   background-color: var(--color-primary);
@@ -9,100 +15,205 @@
   position: relative;
 }
 
-/* .sc-digi-layout-container-h .digi-layout-container.sc-digi-layout-container {
-  position: relative;
-} */
-
-.digi-form-input--button-variation-primary
+.search-panel
+  .digi-form-input--button-variation-primary
   .digi-form-input__input-wrapper.sc-digi-form-input-s
   > [slot^='button']
   button,
-.digi-form-input__input-wrapper .sc-digi-form-input-s,
-.sc-digi-icon-search-h svg.sc-digi-icon-search > [slot^='button'] button,
-.sc-digi-icon-search-h svg.sc-digi-icon-search {
+.search-panel .digi-form-input__input-wrapper .sc-digi-form-input-s,
+.search-panel
+  .sc-digi-icon-search-h
+  svg.sc-digi-icon-search
+  > [slot^='button']
+  button,
+.search-panel .sc-digi-icon-search-h svg.sc-digi-icon-search {
   color: black;
-  width: 6rem;
+  height: 2rem;
 }
 
-.sc-digi-form-label-h .digi-form-label.sc-digi-form-label {
+.search-panel svg.sc-digi-icon-chevron-up,
+.search-panel svg.sc-digi-icon-chevron-down {
+  color: black;
+}
+
+.search-panel svg.sc-digi-icon-chevron-right {
+  color: black;
+}
+
+.search-panel .sc-digi-form-label-h .digi-form-label.sc-digi-form-label {
   color: white;
 }
 
-h2,
-h3 {
+.search-panel h2,
+.search-panel h3 {
   color: white;
 }
 
-.digi-button.sc-digi-button[aria-pressed='true'],
-.digi-button.sc-digi-button:hover {
+.search-panel .digi-button.sc-digi-button[aria-pressed='true'],
+.search-panel .digi-button.sc-digi-button:hover {
   background-color: var(--color-button);
   color: black;
 }
 
-.sc-digi-button-h .digi-button--size-medium.sc-digi-button:hover,
-.sc-digi-button-h .digi-button--size-medium.sc-digi-button:active {
+.search-panel .sc-digi-button-h .digi-button--size-medium.sc-digi-button:hover,
+.search-panel
+  .sc-digi-button-h
+  .digi-button--size-medium.sc-digi-button:active {
   background-color: #b4a60c;
 }
 
-.btn-wrap .digi-button.sc-digi-button[aria-pressed='true'],
-.btn-wrap .digi-button.sc-digi-button:hover {
+.search-panel .btn-wrap .digi-button.sc-digi-button[aria-pressed='true'],
+.search-panel .btn-wrap .digi-button.sc-digi-button:hover {
   background: white;
-  color: black;
 }
 
-.digi-form-input__input.sc-digi-form-input {
+.search-panel .digi-form-input__input.sc-digi-form-input {
   z-index: 10;
 }
 
-.sc-digi-layout-columns-h .digi-layout-columns.sc-digi-layout-columns {
+.search-panel
+  .sc-digi-layout-columns-h
+  .digi-layout-columns.sc-digi-layout-columns {
   grid-row-gap: 0;
 }
 
-.sc-digi-layout-columns-h .digi-layout-columns--three.sc-digi-layout-columns {
+.search-panel
+  .sc-digi-layout-columns-h
+  .digi-layout-columns--three.sc-digi-layout-columns {
   --digi--layout-columns--gap--column: 1rem;
   grid-template-columns: repeat(3, minmax(0, 7rem));
   justify-items: center;
   align-items: center;
-  /* position: relative; */
 }
 
-.sc-digi-button-h .digi-button--size-medium.sc-digi-button {
+.search-panel .sc-digi-button-h .digi-button--size-medium.sc-digi-button {
   background-color: var(--color-button);
 }
 
-.dropdows-layout {
-  background-color: red;
+.search-panel .dropdown-layout {
+  flex-direction: row;
+  background-color: white;
+  box-shadow: 0 0.5rem 1rem #00000026;
   border-radius: 0.4rem;
   width: 100%;
   max-width: 45rem;
-  height: 30rem;
   position: absolute;
   top: 14rem;
   left: 50%;
   transform: translate(-50%);
 }
 
-@media (min-width: 576px) {
+.search-panel .dropdown-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  width: 100%;
 }
 
-.btn-wrap {
+.search-panel .hidden {
+  display: none;
+}
+
+.search-panel .dropdown-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px black solid;
+}
+
+.search-panel .option-btn {
+  --digi--button--color--text--function--default: black;
+  --digi--button--width: 100%;
+  --digi--button--justify-content--default: space-between;
+  display: flex;
+  --digi--button--font-size--small: 1rem;
+  --digi--button--font-weight--function: 400;
+}
+
+.search-panel .option-btn .digi-button.sc-digi-button:hover {
+  background: var(--color-card-light);
+}
+
+.search-panel .option-btn .digi-button.sc-digi-button[aria-pressed='true'] {
+  background: var(--color-primary);
+  color: white;
+}
+
+.digi-form-checkbox__label.sc-digi-form-checkbox:last-child {
+  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.sc-digi-button-h .digi-button--variation-function.sc-digi-button:hover,
+.sc-digi-button-h .digi-button--variation-function.sc-digi-button:focus {
+  text-decoration: none;
+}
+
+.search-panel .clear-btn {
+  --digi--button--color--text--function--default: red;
+  text-decoration: underline;
+  text-decoration-color: red;
+  --digi--button--color--text--function--hover: red;
+}
+
+.search-panel .clear-btn .digi-button.sc-digi-button[aria-pressed='true'],
+.search-panel .clear-btn .digi-button.sc-digi-button:hover {
+  color: red;
+}
+
+.sc-digi-icon-chevron-right-h svg.sc-digi-icon-chevron-right {
+  --digi--icon--height: 0.75rem;
+}
+
+.dropdown-form {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 576px) {
+  .search-panel
+    .digi-form-input--button-variation-primary
+    .digi-form-input__input-wrapper.sc-digi-form-input-s
+    > [slot^='button']
+    button,
+  .search-panel .digi-form-input__input-wrapper .sc-digi-form-input-s,
+  .search-panel
+    .sc-digi-icon-search-h
+    svg.sc-digi-icon-search
+    > [slot^='button']
+    button,
+  .search-panel .sc-digi-icon-search-h svg.sc-digi-icon-search {
+    width: 6rem;
+  }
+}
+
+.search-panel .btn-wrap {
   width: max-content;
 }
 
 @media (min-width: 768px) {
-  .dropdows-layout {
+  .search-panel .dropdown-layout {
     left: 0;
     transform: translate(0);
+  }
+
+  .dropdown-form {
+    grid-template-columns: calc(50% - 0.5rem) calc(50% - 0.5rem);
+  }
+
+  .search-panel .hidden {
+    display: block;
   }
 }
 
 @media (min-width: 992px) {
-  .btn-wrap {
+  .search-panel .btn-wrap {
     position: relative;
   }
 
-  .dropdows-layout {
+  .search-panel .dropdown-layout {
     top: 2.8rem;
-    width: 30rem;
+    width: 40rem;
   }
 }
