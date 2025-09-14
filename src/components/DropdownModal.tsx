@@ -1,127 +1,72 @@
-import {
-  ButtonSize,
-  ButtonType,
-  ButtonVariation,
-  LayoutColumnsElement,
-  LayoutColumnsVariation,
-} from '@digi/arbetsformedlingen'
-import {
-  DigiButton,
-  // DigiFormCheckbox,
-  DigiFormFieldset,
-  DigiIconChevronRight,
-  DigiLayoutColumns,
-} from '@digi/arbetsformedlingen-react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { getOccupationFields } from '../services/filteringServices'
+import type {
+  OccupationGroup,
+  OccupationField,
+} from '../models/occupationModels'
+import { Modal } from './Modal'
 
-type OccupationGroup = {
-  'taxonomy/id': 'string'
-  'taxonomy/type': 'string'
-  'taxonomy/preferred-label': 'string'
+type DropdownModalProps = {
+  filterType: string
 }
 
-export const DropdownModal = () => {
-  const [active, setActive] = useState('')
-  const [isToggled, setIsToggled] = useState(false)
-  const [occupations, setOccupations] = useState<OccupationGroup[]>([])
+export const DropdownModal = ({ filterType }: DropdownModalProps) => {
+  const [occupationFields, setOccupationFields] = useState<OccupationField[]>(
+    () => {
+      const stored = sessionStorage.getItem('occupation-field')
+      return stored ? JSON.parse(stored) : []
+    },
+  )
+
+  const [occupationGroups, setOccupationGroups] = useState<OccupationGroup[]>(
+    [],
+  )
+  const [currentId, setCurrentId] = useState('')
 
   useEffect(() => {
+    if (occupationFields.length > 0) return
+
     const fetchOccupationFieldGroups = async () => {
-      const groups = await axios.get(
-        'https://taxonomy.api.jobtechdev.se/v1/taxonomy/main/concepts?type=occupation-field',
-      )
-      const result = await groups.data
-      setOccupations(result)
+      const result = await getOccupationFields()
+      setOccupationFields(result)
     }
     fetchOccupationFieldGroups()
-  }, [])
+  })
 
-  console.log(occupations)
+  useEffect(() => {
+    if (!currentId) return
+
+    const cache = JSON.parse(
+      sessionStorage.getItem('occupation-groups') || '{}',
+    )
+
+    if (cache[currentId]) {
+      setOccupationGroups(cache[currentId])
+      return
+    }
+
+    const fetchOccupationGroups = async () => {
+      const res = await axios.get(
+        `https://taxonomy.api.jobtechdev.se/v1/taxonomy/specific/concepts/ssyk?related-ids=${currentId}&type=ssyk-level-4&relation=narrower`,
+      )
+      const result = await res.data
+
+      const updated = { ...cache, [currentId]: result }
+      sessionStorage.setItem('occupation-groups', JSON.stringify(updated))
+
+      setOccupationGroups(result)
+    }
+
+    fetchOccupationGroups()
+  }, [currentId])
 
   return (
-    <DigiLayoutColumns
-      className="dropdown-layout"
-      afElement={LayoutColumnsElement.DIV}
-      afVariation={LayoutColumnsVariation.ONE} // Set to columns 1 | 1
-    >
-      <form className="dropdown-form">
-        <div className={`${isToggled ? 'hidden' : ''}`}>
-          <div className="dropdown-wrap">
-            <div className="dropdown-label">
-              <span>Yrkesområden</span>
-              <DigiButton
-                className="clear-btn"
-                afSize={ButtonSize.SMALL}
-                afVariation={ButtonVariation.FUNCTION}
-                afFullWidth={false}
-                afType={ButtonType.RESET}
-              >
-                Rensa
-              </DigiButton>
-            </div>
-            <div className="option-wrap">
-              {occupations
-                .sort((a, b) =>
-                  a['taxonomy/preferred-label'].localeCompare(
-                    b['taxonomy/preferred-label'],
-                    'sv',
-                  ),
-                )
-                .map(occ => {
-                  return (
-                    <DigiButton
-                      className="option-btn"
-                      afSize={ButtonSize.SMALL}
-                      afVariation={ButtonVariation.FUNCTION}
-                      afFullWidth={false}
-                      key={occ['taxonomy/id']}
-                      afAriaPressed={active === occ['taxonomy/id']}
-                      onAfOnClick={() => {
-                        setActive(occ['taxonomy/id'])
-                        setIsToggled(!isToggled)
-                      }}
-                    >
-                      {occ['taxonomy/preferred-label']}
-                      <DigiIconChevronRight
-                        slot="icon-secondary"
-                        className="option-chevron"
-                      />
-                    </DigiButton>
-                  )
-                })}
-            </div>
-          </div>
-        </div>
-        <div className={`${isToggled ? '' : 'hidden'}`}>
-          <div className="dropdown-wrap">
-            <div className="dropdown-label">
-              <span>Yrken</span>
-              <DigiButton
-                className="clear-btn"
-                afSize={ButtonSize.SMALL}
-                afVariation={ButtonVariation.FUNCTION}
-                afFullWidth={false}
-                afType={ButtonType.RESET}
-              >
-                Rensa
-              </DigiButton>
-            </div>
-            <DigiFormFieldset afForm="yrken" afName="Yrken">
-              {/* {testData.map(td => {
-                return td.options.map(o => {
-                  return (
-                    <DigiFormCheckbox
-                      afLabel={o.option}
-                      key={o.option}
-                    ></DigiFormCheckbox>
-                  )
-                })
-              })} */}
-            </DigiFormFieldset>
-          </div>
-        </div>
-      </form>
-    </DigiLayoutColumns>
+    <Modal
+      occupationFields={occupationFields}
+      occupationGroups={occupationGroups}
+      filterType={filterType}
+      setCurrentId={setCurrentId}
+    />
   )
 }
