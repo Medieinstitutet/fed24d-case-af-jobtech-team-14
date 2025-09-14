@@ -6,6 +6,11 @@ export const Layout = () => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
   const [selectedFields, setSelectedFields] = useState<string[]>([])
 
+  const [selectedMunicipalities, setSelectedMunicipalities] = useState<
+    string[]
+  >([])
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([])
+
   return (
     <FilterContext.Provider
       value={{
@@ -13,6 +18,10 @@ export const Layout = () => {
         setSelectedGroups,
         selectedFields,
         setSelectedFields,
+        selectedMunicipalities,
+        setSelectedMunicipalities,
+        selectedRegions,
+        setSelectedRegions,
       }}
     >
       <header></header>
