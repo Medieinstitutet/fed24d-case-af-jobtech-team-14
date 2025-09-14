@@ -54,11 +54,11 @@ export const SearchPanel = () => {
               isOpen={openBtn === 'btn2'}
               onToggle={() => setOpenBtn(openBtn === 'btn2' ? null : 'btn2')}
             />
-            <DropdownBtn
+            {/* <DropdownBtn
               label="Filter"
               isOpen={openBtn === 'btn3'}
               onToggle={() => setOpenBtn(openBtn === 'btn3' ? null : 'btn3')}
-            />
+            /> */}
           </DigiLayoutColumns>
         </DigiLayoutColumns>
       </DigiLayoutBlock>

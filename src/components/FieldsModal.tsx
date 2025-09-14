@@ -36,7 +36,7 @@ export const OccupationModal = ({
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
 
-  const { selectedGroups, setSelectedGroups } =
+  const { selectedGroups, setSelectedGroups, setSelectedFields } =
     useContext<FilterContextType>(FilterContext)
 
   console.log(selectedGroups)
@@ -58,6 +58,10 @@ export const OccupationModal = ({
                 afVariation={ButtonVariation.FUNCTION}
                 afFullWidth={false}
                 afType={ButtonType.RESET}
+                onAfOnClick={() => {
+                  setSelectedGroups([])
+                  setSelectedFields([])
+                }}
               >
                 Rensa
               </DigiButton>
@@ -106,6 +110,14 @@ export const OccupationModal = ({
                 afVariation={ButtonVariation.FUNCTION}
                 afFullWidth={false}
                 afType={ButtonType.RESET}
+                onAfOnClick={() => {
+                  const currentGroupsIds = occupationGroups.map(
+                    g => g['taxonomy/id'],
+                  )
+                  setSelectedGroups(
+                    selectedGroups.filter(id => !currentGroupsIds.includes(id)),
+                  )
+                }}
               >
                 Rensa
               </DigiButton>
