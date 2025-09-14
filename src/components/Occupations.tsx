@@ -7,9 +7,9 @@ import type {
   OccupationGroup,
   OccupationField,
 } from '../models/occupationModels'
-import { OccupationModal } from './FieldsModal'
+import { OccupationModal } from './OccupationsModal'
 
-export const OccupationFields = () => {
+export const Occupations = () => {
   const [occupationFields, setOccupationFields] = useState<OccupationField[]>(
     () => {
       const stored = sessionStorage.getItem('occupation-field')
