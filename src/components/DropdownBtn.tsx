@@ -7,6 +7,7 @@ import {
   DigiIconChevronUp,
 } from '@digi/arbetsformedlingen-react'
 import { Occupations } from './Occupations'
+import { Locations } from './Locations'
 
 type ButtonProps = {
   label: string
@@ -33,6 +34,7 @@ export const DropdownBtn = ({ label, isOpen, onToggle }: ButtonProps) => {
           style={{ display: isOpen ? 'none' : 'block' }}
         />
       </DigiButton>
+      {label === 'Ort' && isOpen && <Locations />}
       {label === 'Yrke' && isOpen && <Occupations />}
     </div>
   )

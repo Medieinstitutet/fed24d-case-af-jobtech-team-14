@@ -1,8 +1,5 @@
 import { useContext, useState } from 'react'
-import type {
-  OccupationField,
-  OccupationGroup,
-} from '../models/occupationModels'
+
 import {
   DigiButton,
   DigiFormCheckbox,
@@ -21,23 +18,27 @@ import {
   FilterContext,
   type FilterContextType,
 } from '../contexts/FilterContext'
+import type { Municipality, Region } from '../models/locationModels'
 
 type ModalProps = {
   setCurrentId: React.Dispatch<React.SetStateAction<string>>
-  occupationFields: OccupationField[]
-  occupationGroups: OccupationGroup[]
+  regions: Region[]
+  municipalities: Municipality[]
 }
 
-export const OccupationModal = ({
+export const LocationsModal = ({
   setCurrentId,
-  occupationFields,
-  occupationGroups,
+  regions,
+  municipalities,
 }: ModalProps) => {
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
 
-  const { selectedGroups, setSelectedGroups, setSelectedFields } =
-    useContext<FilterContextType>(FilterContext)
+  const {
+    setSelectedRegions,
+    selectedMunicipalities,
+    setSelectedMunicipalities,
+  } = useContext<FilterContextType>(FilterContext)
 
   return (
     <DigiLayoutColumns
@@ -49,7 +50,7 @@ export const OccupationModal = ({
         <div className={`${isToggled ? 'hidden' : ''}`}>
           <div className="dropdown-wrap">
             <div className="dropdown-label">
-              <span>Yrkesområden</span>
+              <span>Län</span>
               <DigiButton
                 className="clear-btn"
                 afSize={ButtonSize.SMALL}
@@ -57,37 +58,37 @@ export const OccupationModal = ({
                 afFullWidth={false}
                 afType={ButtonType.RESET}
                 onAfOnClick={() => {
-                  setSelectedGroups([])
-                  setSelectedFields([])
+                  setSelectedRegions([])
+                  setSelectedMunicipalities([])
                 }}
               >
                 Rensa
               </DigiButton>
             </div>
             <div className="option-wrap">
-              {occupationFields
+              {regions
                 .sort((a, b) =>
                   a['taxonomy/preferred-label'].localeCompare(
                     b['taxonomy/preferred-label'],
                     'sv',
                   ),
                 )
-                .map(occ => {
+                .map(r => {
                   return (
                     <DigiButton
                       className="option-btn"
                       afSize={ButtonSize.SMALL}
                       afVariation={ButtonVariation.FUNCTION}
                       afFullWidth={false}
-                      key={occ['taxonomy/id']}
-                      afAriaPressed={active === occ['taxonomy/id']}
+                      key={r['taxonomy/id']}
+                      afAriaPressed={active === r['taxonomy/id']}
                       onAfOnClick={() => {
-                        setActive(occ['taxonomy/id'])
+                        setActive(r['taxonomy/id'])
                         setIsToggled(!isToggled)
-                        setCurrentId(occ['taxonomy/id'])
+                        setCurrentId(r['taxonomy/id'])
                       }}
                     >
-                      {occ['taxonomy/preferred-label']}
+                      {r['taxonomy/preferred-label']}
                       <DigiIconChevronRight
                         slot="icon-secondary"
                         className="option-chevron"
@@ -101,7 +102,7 @@ export const OccupationModal = ({
         <div className={`${isToggled ? '' : 'hidden'}`}>
           <div className="dropdown-wrap">
             <div className="dropdown-label">
-              <span>Yrken</span>
+              <span>Kommuner</span>
               <DigiButton
                 className="clear-btn"
                 afSize={ButtonSize.SMALL}
@@ -109,11 +110,13 @@ export const OccupationModal = ({
                 afFullWidth={false}
                 afType={ButtonType.RESET}
                 onAfOnClick={() => {
-                  const currentGroupsIds = occupationGroups.map(
-                    g => g['taxonomy/id'],
+                  const currentMunicipalitiesIds = municipalities.map(
+                    m => m['taxonomy/id'],
                   )
-                  setSelectedGroups(
-                    selectedGroups.filter(id => !currentGroupsIds.includes(id)),
+                  setSelectedMunicipalities(
+                    selectedMunicipalities.filter(
+                      id => !currentMunicipalitiesIds.includes(id),
+                    ),
                   )
                 }}
               >
@@ -121,19 +124,26 @@ export const OccupationModal = ({
               </DigiButton>
             </div>
             <DigiFormFieldset afForm="yrken" afName="Yrken">
-              {occupationGroups.map(sg => {
+              {municipalities.map(m => {
                 return (
                   <DigiFormCheckbox
-                    afLabel={sg['taxonomy/preferred-label']}
-                    key={sg['taxonomy/id']}
-                    afChecked={selectedGroups.includes(sg['taxonomy/id'])}
+                    afLabel={m['taxonomy/preferred-label']}
+                    key={m['taxonomy/id']}
+                    afChecked={selectedMunicipalities.includes(
+                      m['taxonomy/id'],
+                    )}
                     onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                       const isChecked = (e.target as HTMLInputElement).checked
-                      const id = sg['taxonomy/id']
+                      const id = m['taxonomy/id']
                       if (isChecked) {
-                        setSelectedGroups([...selectedGroups, id])
+                        setSelectedMunicipalities([
+                          ...selectedMunicipalities,
+                          id,
+                        ])
                       } else {
-                        setSelectedGroups(selectedGroups.filter(g => g !== id))
+                        setSelectedMunicipalities(
+                          selectedMunicipalities.filter(g => g !== id),
+                        )
                       }
                     }}
                   ></DigiFormCheckbox>
