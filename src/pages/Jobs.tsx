@@ -1,3 +1,11 @@
+import { JobList } from '../components/JobList'
+import { LatestSearchAndSavedAdsButtons } from '../components/LatestSearchAndSavedAdsButtons'
+
 export const Jobs = () => {
-  return <h2>Jobs</h2>
+  return (
+    <>
+      <LatestSearchAndSavedAdsButtons />
+      <JobList />
+    </>
+  )
 }
