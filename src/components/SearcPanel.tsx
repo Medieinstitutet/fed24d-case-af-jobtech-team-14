@@ -45,15 +45,16 @@ export const SearchPanel = () => {
             afVariation={LayoutColumnsVariation.THREE}
           >
             <DropdownBtn
-              label="Yrke"
-              isOpen={openBtn === 'btn1'}
-              onToggle={() => setOpenBtn(openBtn === 'btn1' ? null : 'btn1')}
-            />
-            <DropdownBtn
               label="Ort"
               isOpen={openBtn === 'btn2'}
               onToggle={() => setOpenBtn(openBtn === 'btn2' ? null : 'btn2')}
             />
+            <DropdownBtn
+              label="Yrke"
+              isOpen={openBtn === 'btn1'}
+              onToggle={() => setOpenBtn(openBtn === 'btn1' ? null : 'btn1')}
+            />
+
             {/* <DropdownBtn
               label="Filter"
               isOpen={openBtn === 'btn3'}
