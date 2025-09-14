@@ -13,7 +13,7 @@ import {
   DigiLayoutColumns,
   DigiTypography,
 } from '@digi/arbetsformedlingen-react'
-import { ModalBtn } from './DropdownBtn'
+import { DropdownBtn } from './DropdownBtn'
 import { useState } from 'react'
 
 export const SearchPanel = () => {
@@ -44,17 +44,17 @@ export const SearchPanel = () => {
             afElement={LayoutColumnsElement.DIV}
             afVariation={LayoutColumnsVariation.THREE}
           >
-            <ModalBtn
+            <DropdownBtn
               label="Yrke"
               isOpen={openBtn === 'btn1'}
               onToggle={() => setOpenBtn(openBtn === 'btn1' ? null : 'btn1')}
             />
-            <ModalBtn
+            <DropdownBtn
               label="Ort"
               isOpen={openBtn === 'btn2'}
               onToggle={() => setOpenBtn(openBtn === 'btn2' ? null : 'btn2')}
             />
-            <ModalBtn
+            <DropdownBtn
               label="Filter"
               isOpen={openBtn === 'btn3'}
               onToggle={() => setOpenBtn(openBtn === 'btn3' ? null : 'btn3')}

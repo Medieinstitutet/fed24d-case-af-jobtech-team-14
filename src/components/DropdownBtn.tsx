@@ -6,7 +6,7 @@ import {
   DigiIconChevronDown,
   DigiIconChevronUp,
 } from '@digi/arbetsformedlingen-react'
-import { DropdownModal } from './DropdownModal'
+import { OccupationFields } from './OccupationFields'
 
 type ButtonProps = {
   label: string
@@ -14,7 +14,7 @@ type ButtonProps = {
   onToggle: () => void
 }
 
-export const ModalBtn = ({ label, isOpen, onToggle }: ButtonProps) => {
+export const DropdownBtn = ({ label, isOpen, onToggle }: ButtonProps) => {
   return (
     <div className="btn-wrap">
       <DigiButton
@@ -33,7 +33,7 @@ export const ModalBtn = ({ label, isOpen, onToggle }: ButtonProps) => {
           style={{ display: isOpen ? 'none' : 'block' }}
         />
       </DigiButton>
-      {isOpen && <DropdownModal />}
+      {label === 'Yrke' && isOpen && <OccupationFields />}
     </div>
   )
 }

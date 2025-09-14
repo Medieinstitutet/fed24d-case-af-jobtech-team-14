@@ -1,17 +1,15 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { getOccupationFields } from '../services/filteringServices'
+import {
+  getOccupationFields,
+  getOccupationGroups,
+} from '../services/filteringServices'
 import type {
   OccupationGroup,
   OccupationField,
 } from '../models/occupationModels'
-import { Modal } from './Modal'
+import { OccupationModal } from './FieldsModal'
 
-type DropdownModalProps = {
-  filterType: string
-}
-
-export const DropdownModal = ({ filterType }: DropdownModalProps) => {
+export const OccupationFields = () => {
   const [occupationFields, setOccupationFields] = useState<OccupationField[]>(
     () => {
       const stored = sessionStorage.getItem('occupation-field')
@@ -24,16 +22,20 @@ export const DropdownModal = ({ filterType }: DropdownModalProps) => {
   )
   const [currentId, setCurrentId] = useState('')
 
+  // Fetch occupation-fields
   useEffect(() => {
     if (occupationFields.length > 0) return
 
     const fetchOccupationFieldGroups = async () => {
       const result = await getOccupationFields()
+      sessionStorage.setItem('occupation-field', JSON.stringify(result))
+
       setOccupationFields(result)
     }
     fetchOccupationFieldGroups()
   })
 
+  // Fetch occupation-groups
   useEffect(() => {
     if (!currentId) return
 
@@ -47,11 +49,7 @@ export const DropdownModal = ({ filterType }: DropdownModalProps) => {
     }
 
     const fetchOccupationGroups = async () => {
-      const res = await axios.get(
-        `https://taxonomy.api.jobtechdev.se/v1/taxonomy/specific/concepts/ssyk?related-ids=${currentId}&type=ssyk-level-4&relation=narrower`,
-      )
-      const result = await res.data
-
+      const result = await getOccupationGroups(currentId)
       const updated = { ...cache, [currentId]: result }
       sessionStorage.setItem('occupation-groups', JSON.stringify(updated))
 
@@ -62,10 +60,9 @@ export const DropdownModal = ({ filterType }: DropdownModalProps) => {
   }, [currentId])
 
   return (
-    <Modal
+    <OccupationModal
       occupationFields={occupationFields}
       occupationGroups={occupationGroups}
-      filterType={filterType}
       setCurrentId={setCurrentId}
     />
   )
