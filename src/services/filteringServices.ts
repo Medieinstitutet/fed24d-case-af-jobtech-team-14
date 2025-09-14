@@ -6,6 +6,13 @@ export const getOccupationFields = async () => {
   )
   const result = await res.data
 
-  sessionStorage.setItem('occupation-field', JSON.stringify(result))
+  return result
+}
+
+export const getOccupationGroups = async (id: string) => {
+  const res = await axios.get(
+    `https://taxonomy.api.jobtechdev.se/v1/taxonomy/specific/concepts/ssyk?related-ids=${id}&type=ssyk-level-4&relation=narrower`,
+  )
+  const result = await res.data
   return result
 }
