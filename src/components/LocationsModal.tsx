@@ -31,15 +31,16 @@ export const LocationsModal = ({
   regions,
   municipalities,
 }: ModalProps) => {
-  const [active, setActive] = useState('')
-  const [isToggled, setIsToggled] = useState(false)
-
   const {
     selectedRegions,
     setSelectedRegions,
     selectedMunicipalities,
     setSelectedMunicipalities,
   } = useContext<FilterContextType>(FilterContext)
+
+  const [active, setActive] = useState('')
+  const [isToggled, setIsToggled] = useState(false)
+  const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
 
   console.log('regions: ' + selectedRegions)
 
@@ -150,11 +151,14 @@ export const LocationsModal = ({
                   onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                     const isChecked = (e.target as HTMLInputElement).checked
                     if (isChecked) {
+                      setStoredMunicipalities(selectedMunicipalities)
+                      setSelectedMunicipalities([])
                       setSelectedRegions([...selectedRegions, active])
                     } else {
                       setSelectedRegions(
                         selectedRegions.filter(sr => sr !== active),
                       )
+                      setSelectedMunicipalities(storedMunicipalities)
                     }
                   }}
                 ></DigiFormCheckbox>
@@ -169,6 +173,12 @@ export const LocationsModal = ({
                         ? false
                         : selectedMunicipalities.includes(m['taxonomy/id'])
                     }
+                    onClick={e => {
+                      if (selectedRegions.includes(active)) {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }
+                    }}
                     onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                       const isChecked = (e.target as HTMLInputElement).checked
                       const id = m['taxonomy/id']
