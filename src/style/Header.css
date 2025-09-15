@@ -1,0 +1,74 @@
+.header-scoped {
+  width: 100vw;
+}
+
+.af-header {
+  --digi--color--background--primary: var(--color-primary);
+  --digi--color--text--link: var(--color-white);
+  color: #fff;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.af-header__brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-af {
+  height: 60px;
+  width: auto;
+  margin-right: 8px;
+}
+
+.sc-digi-header-h .digi-header__wrapper.sc-digi-header {
+  position: relative;
+  width: 80px;
+}
+
+.sc-digi-logo-h .digi-logo.sc-digi-logo svg.sc-digi-logo {
+  display: none;
+}
+
+.af-header__brand-text {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+}
+.af-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.af-header__link {
+  padding-right: 10px;
+}
+
+digi-header .digi-header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+digi-header .digi-header__navigation {
+  display: none !important;
+}
+
+@media (max-width: 1100px) {
+  .af-header__actions {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-af {
+    height: 40px;
+  }
+  .af-header__brand-text {
+    font-size: 20px;
+  }
+}

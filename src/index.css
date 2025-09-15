@@ -4,10 +4,10 @@
 @import './style//colors.css';
 @import './style//JobList.css';
 @import './style//LatestSearchAndSavedAdsButtons.css';
+@import './style//Header.css';
 @import './style//jobDetails.css';
 
 
 body {
   background-color: var(--color-bg);
 }
-
