@@ -1,6 +1,8 @@
 import '../style/SearchPanel.css'
 
 import {
+  ButtonSize,
+  ButtonVariation,
   FormInputSearchVariation,
   FormInputType,
   LayoutColumnsElement,
@@ -8,7 +10,10 @@ import {
   TypographyVariation,
 } from '@digi/arbetsformedlingen'
 import {
+  DigiButton,
   DigiFormInputSearch,
+  DigiIconBell,
+  DigiIconX,
   DigiLayoutBlock,
   DigiLayoutColumns,
   DigiTypography,
@@ -42,7 +47,7 @@ export const SearchPanel = () => {
           <DigiLayoutColumns
             className="btn-container"
             afElement={LayoutColumnsElement.DIV}
-            afVariation={LayoutColumnsVariation.THREE}
+            afVariation={LayoutColumnsVariation.FOUR}
           >
             <DropdownBtn
               label="Ort"
@@ -60,6 +65,25 @@ export const SearchPanel = () => {
               isOpen={openBtn === 'btn3'}
               onToggle={() => setOpenBtn(openBtn === 'btn3' ? null : 'btn3')}
             /> */}
+
+            <DigiButton
+              className="bevaka-btn"
+              afSize={ButtonSize.SMALL}
+              afVariation={ButtonVariation.FUNCTION}
+              afFullWidth={false}
+            >
+              <DigiIconBell slot="icon" />
+              Bevaka
+            </DigiButton>
+            <DigiButton
+              className="rensa-btn"
+              afSize={ButtonSize.SMALL}
+              afVariation={ButtonVariation.FUNCTION}
+              afFullWidth={false}
+            >
+              <DigiIconX slot="icon" />
+              Rensa
+            </DigiButton>
           </DigiLayoutColumns>
         </DigiLayoutColumns>
       </DigiLayoutBlock>
