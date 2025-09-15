@@ -4,3 +4,7 @@
 @import './style//colors.css';
 @import './style//JobList.css';
 @import './style//LatestSearchAndSavedAdsButtons.css';
+
+body {
+  background-color: var(--color-bg);
+}
