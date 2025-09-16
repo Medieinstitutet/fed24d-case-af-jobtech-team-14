@@ -36,8 +36,15 @@ export const OccupationModal = ({
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
 
-  const { selectedGroups, setSelectedGroups, setSelectedFields } =
-    useContext<FilterContextType>(FilterContext)
+  const {
+    selectedGroups,
+    setSelectedGroups,
+    // selectedFields,
+    setSelectedFields,
+  } = useContext<FilterContextType>(FilterContext)
+
+  // console.log(selectedGroups)
+  // console.log(selectedFields);
 
   return (
     <DigiLayoutColumns

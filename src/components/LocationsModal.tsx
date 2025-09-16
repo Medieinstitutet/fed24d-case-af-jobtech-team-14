@@ -40,11 +40,13 @@ export const LocationsModal = ({
 
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
-  const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
+  // const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
 
-  console.log('regions: ' + selectedRegions)
+  // console.log('regions: ' + selectedRegions)
 
-  console.log('municipalities: ' + selectedMunicipalities)
+  // console.log('municipalities: ' + selectedMunicipalities)
+
+  // console.log('stored: ', storedMunicipalities)
 
   return (
     <DigiLayoutColumns
@@ -144,25 +146,38 @@ export const LocationsModal = ({
               </DigiButton>
             </div>
             <DigiFormFieldset afForm="yrken" afName="Yrken">
-              {active && (
+              {/* {active && (
                 <DigiFormCheckbox
                   afLabel="Välj alla kommuner"
                   afChecked={selectedRegions.includes(active)}
                   onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                     const isChecked = (e.target as HTMLInputElement).checked
                     if (isChecked) {
-                      setStoredMunicipalities(selectedMunicipalities)
-                      setSelectedMunicipalities([])
+                      setStoredMunicipalities(
+                        selectedMunicipalities.filter(
+                          sm => !storedMunicipalities.includes(sm),
+                        ),
+                      )
+                      setSelectedMunicipalities(
+                        selectedMunicipalities.filter(sm =>
+                          storedMunicipalities.includes(sm),
+                        ),
+                      )
                       setSelectedRegions([...selectedRegions, active])
                     } else {
                       setSelectedRegions(
                         selectedRegions.filter(sr => sr !== active),
                       )
+                      setStoredMunicipalities(
+                        storedMunicipalities.filter(sm =>
+                          selectedMunicipalities.includes(sm),
+                        ),
+                      )
                       setSelectedMunicipalities(storedMunicipalities)
                     }
                   }}
                 ></DigiFormCheckbox>
-              )}
+              )} */}
               {municipalities.map(m => {
                 return (
                   <DigiFormCheckbox
