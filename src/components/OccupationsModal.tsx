@@ -36,8 +36,15 @@ export const OccupationModal = ({
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
 
-  const { selectedGroups, setSelectedGroups, setSelectedFields } =
-    useContext<FilterContextType>(FilterContext)
+  const {
+    selectedGroups,
+    setSelectedGroups,
+    // selectedFields,
+    setSelectedFields,
+  } = useContext<FilterContextType>(FilterContext)
+
+  // console.log(selectedGroups)
+  // console.log(selectedFields);
 
   return (
     <DigiLayoutColumns
@@ -101,7 +108,22 @@ export const OccupationModal = ({
         <div className={`${isToggled ? '' : 'hidden'}`}>
           <div className="dropdown-wrap">
             <div className="dropdown-label">
+              {isToggled && (
+                <DigiButton
+                  className="back-btn"
+                  afSize={ButtonSize.SMALL}
+                  afVariation={ButtonVariation.FUNCTION}
+                  afFullWidth={false}
+                  afType={ButtonType.RESET}
+                  onAfOnClick={() => {
+                    setIsToggled(!isToggled)
+                  }}
+                >
+                  &lsaquo; Yrkesområden
+                </DigiButton>
+              )}
               <span>Yrken</span>
+
               <DigiButton
                 className="clear-btn"
                 afSize={ButtonSize.SMALL}

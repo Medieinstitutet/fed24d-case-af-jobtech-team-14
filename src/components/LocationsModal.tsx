@@ -31,14 +31,22 @@ export const LocationsModal = ({
   regions,
   municipalities,
 }: ModalProps) => {
-  const [active, setActive] = useState('')
-  const [isToggled, setIsToggled] = useState(false)
-
   const {
+    selectedRegions,
     setSelectedRegions,
     selectedMunicipalities,
     setSelectedMunicipalities,
   } = useContext<FilterContextType>(FilterContext)
+
+  const [active, setActive] = useState('')
+  const [isToggled, setIsToggled] = useState(false)
+  // const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
+
+  // console.log('regions: ' + selectedRegions)
+
+  // console.log('municipalities: ' + selectedMunicipalities)
+
+  // console.log('stored: ', storedMunicipalities)
 
   return (
     <DigiLayoutColumns
@@ -102,6 +110,20 @@ export const LocationsModal = ({
         <div className={`${isToggled ? '' : 'hidden'}`}>
           <div className="dropdown-wrap">
             <div className="dropdown-label">
+              {isToggled && (
+                <DigiButton
+                  className="back-btn"
+                  afSize={ButtonSize.SMALL}
+                  afVariation={ButtonVariation.FUNCTION}
+                  afFullWidth={false}
+                  afType={ButtonType.RESET}
+                  onAfOnClick={() => {
+                    setIsToggled(!isToggled)
+                  }}
+                >
+                  &lsaquo; Län
+                </DigiButton>
+              )}
               <span>Kommuner</span>
               <DigiButton
                 className="clear-btn"
@@ -124,14 +146,54 @@ export const LocationsModal = ({
               </DigiButton>
             </div>
             <DigiFormFieldset afForm="yrken" afName="Yrken">
+              {/* {active && (
+                <DigiFormCheckbox
+                  afLabel="Välj alla kommuner"
+                  afChecked={selectedRegions.includes(active)}
+                  onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
+                    const isChecked = (e.target as HTMLInputElement).checked
+                    if (isChecked) {
+                      setStoredMunicipalities(
+                        selectedMunicipalities.filter(
+                          sm => !storedMunicipalities.includes(sm),
+                        ),
+                      )
+                      setSelectedMunicipalities(
+                        selectedMunicipalities.filter(sm =>
+                          storedMunicipalities.includes(sm),
+                        ),
+                      )
+                      setSelectedRegions([...selectedRegions, active])
+                    } else {
+                      setSelectedRegions(
+                        selectedRegions.filter(sr => sr !== active),
+                      )
+                      setStoredMunicipalities(
+                        storedMunicipalities.filter(sm =>
+                          selectedMunicipalities.includes(sm),
+                        ),
+                      )
+                      setSelectedMunicipalities(storedMunicipalities)
+                    }
+                  }}
+                ></DigiFormCheckbox>
+              )} */}
               {municipalities.map(m => {
                 return (
                   <DigiFormCheckbox
                     afLabel={m['taxonomy/preferred-label']}
                     key={m['taxonomy/id']}
-                    afChecked={selectedMunicipalities.includes(
-                      m['taxonomy/id'],
-                    )}
+                    afChecked={
+                      selectedRegions.includes(active)
+                        ? false
+                        : selectedMunicipalities.includes(m['taxonomy/id'])
+                    }
+                    onClick={e => {
+                      if (selectedRegions.includes(active)) {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }
+                    }}
                     onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                       const isChecked = (e.target as HTMLInputElement).checked
                       const id = m['taxonomy/id']

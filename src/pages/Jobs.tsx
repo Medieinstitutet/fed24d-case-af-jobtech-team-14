@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Header from '../components/Header/Header'
 import { JobList } from '../components/JobList'
 import { LatestSearchAndSavedAdsButtons } from '../components/LatestSearchAndSavedAdsButtons'
 import { SearchPanel } from '../components/SearcPanel'
@@ -80,7 +79,6 @@ export const Jobs = () => {
 
   return (
     <>
-      <Header />
       <SearchPanel />
       <LatestSearchAndSavedAdsButtons />
       <JobList jobs={jobs} />

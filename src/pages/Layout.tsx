@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router'
 import { FilterContext } from '../contexts/FilterContext'
 import Header from '../components/Header/Header'
+import { SearchContext } from '../contexts/SearchContext'
 
 export const Layout = () => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
@@ -11,6 +12,10 @@ export const Layout = () => {
     string[]
   >([])
   const [selectedRegions, setSelectedRegions] = useState<string[]>([])
+
+  const [query, setQuery] = useState('')
+
+  const [ads, setAds] = useState({})
 
   return (
     <FilterContext.Provider
@@ -25,11 +30,13 @@ export const Layout = () => {
         setSelectedRegions,
       }}
     >
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <footer></footer>
+      <SearchContext.Provider value={{ query, setQuery, ads, setAds }}>
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <footer></footer>
+      </SearchContext.Provider>
     </FilterContext.Provider>
   )
 }
