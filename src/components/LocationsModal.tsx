@@ -40,13 +40,10 @@ export const LocationsModal = ({
 
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
-  // const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
-
-  // console.log('regions: ' + selectedRegions)
-
-  // console.log('municipalities: ' + selectedMunicipalities)
-
-  // console.log('stored: ', storedMunicipalities)
+  const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
+  const [indexedMunicipalities, setIndexedMunicipalites] = useState<string[]>(
+    [],
+  )
 
   return (
     <DigiLayoutColumns
@@ -68,6 +65,8 @@ export const LocationsModal = ({
                 onAfOnClick={() => {
                   setSelectedRegions([])
                   setSelectedMunicipalities([])
+                  setIndexedMunicipalites([])
+                  setStoredMunicipalities([])
                 }}
               >
                 Rensa
@@ -146,21 +145,23 @@ export const LocationsModal = ({
               </DigiButton>
             </div>
             <DigiFormFieldset afForm="yrken" afName="Yrken">
-              {/* {active && (
+              {active && (
                 <DigiFormCheckbox
                   afLabel="Välj alla kommuner"
                   afChecked={selectedRegions.includes(active)}
                   onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                     const isChecked = (e.target as HTMLInputElement).checked
                     if (isChecked) {
-                      setStoredMunicipalities(
-                        selectedMunicipalities.filter(
-                          sm => !storedMunicipalities.includes(sm),
-                        ),
+                      const toAdd = indexedMunicipalities.filter(item =>
+                        item.startsWith(`${active}`),
                       )
-                      setSelectedMunicipalities(
-                        selectedMunicipalities.filter(sm =>
-                          storedMunicipalities.includes(sm),
+                      const nextStored = Array.from(
+                        new Set([...storedMunicipalities, ...toAdd]),
+                      )
+                      setStoredMunicipalities(nextStored)
+                      setSelectedMunicipalities(prev =>
+                        prev.filter(
+                          id => !nextStored.some(sm => sm.endsWith(`:${id}`)),
                         ),
                       )
                       setSelectedRegions([...selectedRegions, active])
@@ -168,16 +169,23 @@ export const LocationsModal = ({
                       setSelectedRegions(
                         selectedRegions.filter(sr => sr !== active),
                       )
-                      setStoredMunicipalities(
-                        storedMunicipalities.filter(sm =>
-                          selectedMunicipalities.includes(sm),
-                        ),
+
+                      const nextStored = storedMunicipalities.filter(
+                        item => !item.startsWith(`${active}:`),
                       )
-                      setSelectedMunicipalities(storedMunicipalities)
+                      setStoredMunicipalities(nextStored)
+
+                      const restoredIds = indexedMunicipalities
+                        .filter(item => item.startsWith(`${active}:`))
+                        .map(item => item.split(':')[1])
+
+                      setSelectedMunicipalities(prev =>
+                        Array.from(new Set([...prev, ...restoredIds])),
+                      )
                     }
                   }}
                 ></DigiFormCheckbox>
-              )} */}
+              )}
               {municipalities.map(m => {
                 return (
                   <DigiFormCheckbox
@@ -198,11 +206,20 @@ export const LocationsModal = ({
                       const isChecked = (e.target as HTMLInputElement).checked
                       const id = m['taxonomy/id']
                       if (isChecked) {
+                        setIndexedMunicipalites(prev =>
+                          Array.from(new Set([...prev, `${active}:${id}`])),
+                        )
+
                         setSelectedMunicipalities([
                           ...selectedMunicipalities,
                           id,
                         ])
                       } else {
+                        setIndexedMunicipalites(
+                          indexedMunicipalities.filter(
+                            item => item !== `${active}:${id}`,
+                          ),
+                        )
                         setSelectedMunicipalities(
                           selectedMunicipalities.filter(g => g !== id),
                         )
