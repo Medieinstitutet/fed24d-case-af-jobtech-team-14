@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router'
 import { FilterContext } from '../contexts/FilterContext'
+import Header from '../components/Header/Header'
 
 export const Layout = () => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
@@ -24,7 +25,7 @@ export const Layout = () => {
         setSelectedRegions,
       }}
     >
-      <header></header>
+      <Header />
       <main>
         <Outlet />
       </main>
