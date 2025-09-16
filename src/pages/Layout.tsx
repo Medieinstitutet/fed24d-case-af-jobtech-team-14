@@ -15,6 +15,8 @@ export const Layout = () => {
 
   const [query, setQuery] = useState('')
 
+  const [ads, setAds] = useState({})
+
   return (
     <FilterContext.Provider
       value={{
@@ -28,7 +30,7 @@ export const Layout = () => {
         setSelectedRegions,
       }}
     >
-      <SearchContext.Provider value={{ query, setQuery }}>
+      <SearchContext.Provider value={{ query, setQuery, ads, setAds }}>
         <Header />
         <main>
           <Outlet />
