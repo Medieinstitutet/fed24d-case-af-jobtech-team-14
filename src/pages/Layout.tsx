@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router'
 import { FilterContext } from '../contexts/FilterContext'
+import { SavedJobsProvider } from '../contexts/SavedJobsProvider'
 
 export const Layout = () => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
@@ -24,11 +25,13 @@ export const Layout = () => {
         setSelectedRegions,
       }}
     >
-      <header></header>
-      <main>
-        <Outlet />
-      </main>
-      <footer></footer>
+      <SavedJobsProvider>
+        <header></header>
+        <main>
+          <Outlet />
+        </main>
+        <footer></footer>
+      </SavedJobsProvider>
     </FilterContext.Provider>
   )
 }
