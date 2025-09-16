@@ -1,6 +1,6 @@
 import './../style/jobDetails.css'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams, useLocation } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router'
 import {
   ButtonVariation,
   InfoCardHeadingLevel,
