@@ -11,6 +11,7 @@ import {
   DigiTypography,
 } from '@digi/arbetsformedlingen-react'
 import type { IJob } from './JobList'
+import { Link } from 'react-router'
 
 interface JobListCardProps {
   job: IJob
@@ -24,7 +25,9 @@ export const JobListCard = ({ job }: JobListCardProps) => {
           <div className="job-list-container">
             <div className="job-list-text">
               <DigiTypography afVariation={TypographyVariation.SMALL}>
-                <h2>{job.title}</h2>
+                <h2>
+                  <Link to={`/annons/${job.id}`}>{job.title}</Link>
+                </h2>
               </DigiTypography>
               <DigiTypography afVariation={TypographyVariation.SMALL}>
                 <p>{job.location}</p>
