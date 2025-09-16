@@ -40,13 +40,10 @@ export const LocationsModal = ({
 
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
-  // const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
-
-  // console.log('regions: ' + selectedRegions)
-
-  // console.log('municipalities: ' + selectedMunicipalities)
-
-  // console.log('stored: ', storedMunicipalities)
+  const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
+  const [indexedMunicipalities, setIndexedMunicipalites] = useState<string[]>(
+    [],
+  )
 
   return (
     <DigiLayoutColumns
@@ -68,6 +65,8 @@ export const LocationsModal = ({
                 onAfOnClick={() => {
                   setSelectedRegions([])
                   setSelectedMunicipalities([])
+                  setIndexedMunicipalites([])
+                  setStoredMunicipalities([])
                 }}
               >
                 Rensa
@@ -140,27 +139,30 @@ export const LocationsModal = ({
                       id => !currentMunicipalitiesIds.includes(id),
                     ),
                   )
+                  setSelectedRegions(selectedRegions.filter(r => r !== active))
                 }}
               >
                 Rensa
               </DigiButton>
             </div>
             <DigiFormFieldset afForm="yrken" afName="Yrken">
-              {/* {active && (
+              {active && (
                 <DigiFormCheckbox
                   afLabel="Välj alla kommuner"
                   afChecked={selectedRegions.includes(active)}
                   onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
                     const isChecked = (e.target as HTMLInputElement).checked
                     if (isChecked) {
-                      setStoredMunicipalities(
-                        selectedMunicipalities.filter(
-                          sm => !storedMunicipalities.includes(sm),
-                        ),
+                      const toAdd = indexedMunicipalities.filter(item =>
+                        item.startsWith(`${active}`),
                       )
-                      setSelectedMunicipalities(
-                        selectedMunicipalities.filter(sm =>
-                          storedMunicipalities.includes(sm),
+                      const nextStored = Array.from(
+                        new Set([...storedMunicipalities, ...toAdd]),
+                      )
+                      setStoredMunicipalities(nextStored)
+                      setSelectedMunicipalities(prev =>
+                        prev.filter(
+                          id => !nextStored.some(sm => sm.endsWith(`:${id}`)),
                         ),
                       )
                       setSelectedRegions([...selectedRegions, active])
@@ -168,49 +170,72 @@ export const LocationsModal = ({
                       setSelectedRegions(
                         selectedRegions.filter(sr => sr !== active),
                       )
-                      setStoredMunicipalities(
-                        storedMunicipalities.filter(sm =>
-                          selectedMunicipalities.includes(sm),
-                        ),
+
+                      const nextStored = storedMunicipalities.filter(
+                        item => !item.startsWith(`${active}:`),
                       )
-                      setSelectedMunicipalities(storedMunicipalities)
+                      setStoredMunicipalities(nextStored)
+
+                      const restoredIds = indexedMunicipalities
+                        .filter(item => item.startsWith(`${active}:`))
+                        .map(item => item.split(':')[1])
+
+                      setSelectedMunicipalities(prev =>
+                        Array.from(new Set([...prev, ...restoredIds])),
+                      )
                     }
                   }}
                 ></DigiFormCheckbox>
-              )} */}
-              {municipalities.map(m => {
-                return (
-                  <DigiFormCheckbox
-                    afLabel={m['taxonomy/preferred-label']}
-                    key={m['taxonomy/id']}
-                    afChecked={
-                      selectedRegions.includes(active)
-                        ? false
-                        : selectedMunicipalities.includes(m['taxonomy/id'])
-                    }
-                    onClick={e => {
-                      if (selectedRegions.includes(active)) {
-                        e.preventDefault()
-                        e.stopPropagation()
-                      }
-                    }}
-                    onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
-                      const isChecked = (e.target as HTMLInputElement).checked
-                      const id = m['taxonomy/id']
-                      if (isChecked) {
-                        setSelectedMunicipalities([
-                          ...selectedMunicipalities,
-                          id,
-                        ])
-                      } else {
-                        setSelectedMunicipalities(
-                          selectedMunicipalities.filter(g => g !== id),
-                        )
-                      }
-                    }}
-                  ></DigiFormCheckbox>
+              )}
+              {municipalities
+                .sort((a, b) =>
+                  a['taxonomy/preferred-label'].localeCompare(
+                    b['taxonomy/preferred-label'],
+                    'sv',
+                  ),
                 )
-              })}
+                .map(m => {
+                  return (
+                    <DigiFormCheckbox
+                      afLabel={m['taxonomy/preferred-label']}
+                      key={m['taxonomy/id']}
+                      afChecked={
+                        selectedRegions.includes(active)
+                          ? false
+                          : selectedMunicipalities.includes(m['taxonomy/id'])
+                      }
+                      onClick={e => {
+                        if (selectedRegions.includes(active)) {
+                          e.preventDefault()
+                          e.stopPropagation()
+                        }
+                      }}
+                      onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
+                        const isChecked = (e.target as HTMLInputElement).checked
+                        const id = m['taxonomy/id']
+                        if (isChecked) {
+                          setIndexedMunicipalites(prev =>
+                            Array.from(new Set([...prev, `${active}:${id}`])),
+                          )
+
+                          setSelectedMunicipalities([
+                            ...selectedMunicipalities,
+                            id,
+                          ])
+                        } else {
+                          setIndexedMunicipalites(
+                            indexedMunicipalities.filter(
+                              item => item !== `${active}:${id}`,
+                            ),
+                          )
+                          setSelectedMunicipalities(
+                            selectedMunicipalities.filter(g => g !== id),
+                          )
+                        }
+                      }}
+                    ></DigiFormCheckbox>
+                  )
+                })}
             </DigiFormFieldset>
           </div>
         </div>
