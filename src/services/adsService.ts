@@ -1,17 +1,19 @@
 import axios from 'axios'
-import type { SearchModel } from '../models/SearchModel'
+import type { SearchModel } from '../models/searchModel'
 
 export const getAds = async ({
   query,
   selectedRegions,
   selectedMunicipalities,
+  selectedFields,
+  selectedGroups,
 }: SearchModel) => {
   const params: Record<string, unknown> = {
     offset: 0,
     limit: 10,
   }
   if (query && query.length > 0) {
-    params.q = query || ''
+    params.q = query
   }
 
   if (selectedRegions && selectedRegions.length > 0) {
@@ -23,6 +25,16 @@ export const getAds = async ({
     params.municipality = Array.isArray(selectedMunicipalities)
       ? selectedMunicipalities
       : [selectedMunicipalities]
+  }
+  if (selectedFields && selectedFields.length > 0) {
+    params['occupation-field'] = Array.isArray(selectedFields)
+      ? selectedFields
+      : [selectedFields]
+  }
+  if (selectedGroups && selectedGroups.length > 0) {
+    params['occupation-group'] = Array.isArray(selectedGroups)
+      ? selectedGroups
+      : [selectedGroups]
   }
 
   const res = await axios.get('https://jobsearch.api.jobtechdev.se/search', {
