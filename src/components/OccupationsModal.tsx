@@ -138,6 +138,7 @@ export const OccupationModal = ({
                   setSelectedGroups(
                     selectedGroups.filter(id => !currentGroupsIds.includes(id)),
                   )
+                  setSelectedFields(selectedFields.filter(f => f !== active))
                 }}
               >
                 Rensa
@@ -185,39 +186,48 @@ export const OccupationModal = ({
                   }}
                 ></DigiFormCheckbox>
               )}
-              {occupationGroups.map(sg => {
-                return (
-                  <DigiFormCheckbox
-                    afLabel={sg['taxonomy/preferred-label']}
-                    key={sg['taxonomy/id']}
-                    afChecked={selectedGroups.includes(sg['taxonomy/id'])}
-                    onClick={e => {
-                      if (selectedFields.includes(active)) {
-                        e.preventDefault()
-                        e.stopPropagation()
-                      }
-                    }}
-                    onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
-                      const isChecked = (e.target as HTMLInputElement).checked
-                      const id = sg['taxonomy/id']
-                      if (isChecked) {
-                        setIndexedGroups(prev =>
-                          Array.from(new Set([...prev, `${active}:${id}`])),
-                        )
-
-                        setSelectedGroups([...selectedGroups, id])
-                      } else {
-                        setIndexedGroups(
-                          indexedGroups.filter(
-                            item => item !== `${active}:${id}`,
-                          ),
-                        )
-                        setSelectedGroups(selectedGroups.filter(g => g !== id))
-                      }
-                    }}
-                  ></DigiFormCheckbox>
+              {occupationGroups
+                .sort((a, b) =>
+                  a['taxonomy/preferred-label'].localeCompare(
+                    b['taxonomy/preferred-label'],
+                    'sv',
+                  ),
                 )
-              })}
+                .map(sg => {
+                  return (
+                    <DigiFormCheckbox
+                      afLabel={sg['taxonomy/preferred-label']}
+                      key={sg['taxonomy/id']}
+                      afChecked={selectedGroups.includes(sg['taxonomy/id'])}
+                      onClick={e => {
+                        if (selectedFields.includes(active)) {
+                          e.preventDefault()
+                          e.stopPropagation()
+                        }
+                      }}
+                      onAfOnChange={(e: CustomEvent<{ checked: boolean }>) => {
+                        const isChecked = (e.target as HTMLInputElement).checked
+                        const id = sg['taxonomy/id']
+                        if (isChecked) {
+                          setIndexedGroups(prev =>
+                            Array.from(new Set([...prev, `${active}:${id}`])),
+                          )
+
+                          setSelectedGroups([...selectedGroups, id])
+                        } else {
+                          setIndexedGroups(
+                            indexedGroups.filter(
+                              item => item !== `${active}:${id}`,
+                            ),
+                          )
+                          setSelectedGroups(
+                            selectedGroups.filter(g => g !== id),
+                          )
+                        }
+                      }}
+                    ></DigiFormCheckbox>
+                  )
+                })}
             </DigiFormFieldset>
           </div>
         </div>
