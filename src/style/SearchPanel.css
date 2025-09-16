@@ -98,7 +98,7 @@
   width: 100%;
   max-width: 45rem;
   position: absolute;
-  top: 14rem;
+  top: 14.8rem;
   left: 50%;
   transform: translate(-50%);
 }
@@ -106,7 +106,7 @@
 .search-panel .dropdown-wrap {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   width: 100%;
 }
 
@@ -155,6 +155,7 @@
   text-decoration: underline;
   text-decoration-color: red;
   --digi--button--color--text--function--hover: red;
+  --digi--button--padding--small: 0 0 0.5rem 0;
 }
 
 .search-panel .clear-btn .digi-button.sc-digi-button[aria-pressed='true'],
@@ -162,13 +163,60 @@
   color: red;
 }
 
+.search-panel .back-btn {
+  --digi--button--color--text--function--default: black;
+  --digi--button--padding--small: 0 0 0.5rem 0;
+}
+
+.search-panel .back-btn .digi-button.sc-digi-button[aria-pressed='true'],
+.search-panel .back-btn .digi-button.sc-digi-button:hover {
+  color: black;
+}
+
 .sc-digi-icon-chevron-right-h svg.sc-digi-icon-chevron-right {
   --digi--icon--height: 0.75rem;
+}
+
+.search-panel
+  .btn-container.sc-digi-layout-columns-h
+  > .digi-layout-columns.sc-digi-layout-columns {
+  grid-template-columns: auto 1fr auto auto;
+  padding-top: 1rem;
+}
+
+.search-panel .btn-wrap {
+  width: max-content;
+}
+
+.option-wrap {
+  padding-top: 0.5rem;
 }
 
 .dropdown-form {
   display: grid;
   grid-template-columns: 1fr;
+}
+
+.search-panel .dropdown-form .sc-digi-form-fieldset-h {
+  --digi--form-fieldset--padding: 1rem 0 0 0;
+}
+
+.search-panel .bevaka-btn,
+.search-panel .rensa-btn {
+  --digi--button--color--text--function--default: white;
+  --digi--button--font-size--small: 1rem;
+  --digi--button--color--icon--function--default: white;
+  --digi--button--font-weight--function: 400;
+  --digi--button--padding--small: 0.5rem;
+}
+
+.search-panel .bevaka-btn .digi-button.sc-digi-button:hover,
+.search-panel .rensa-btn .digi-button.sc-digi-button:hover {
+  background: transparent;
+  color: white;
+  --digi--button--color--icon--function--hover: white;
+  --digi--button--color--icon--function--active: white;
+  text-decoration: underline;
 }
 
 @media (min-width: 576px) {
@@ -188,10 +236,6 @@
   }
 }
 
-.search-panel .btn-wrap {
-  width: max-content;
-}
-
 @media (min-width: 768px) {
   .search-panel .dropdown-layout {
     left: 0;
@@ -204,6 +248,14 @@
 
   .search-panel .hidden {
     display: block;
+  }
+
+  .search-panel .back-btn {
+    display: none;
+  }
+
+  .search-panel .clear-btn {
+    --digi--button--padding--small: 0;
   }
 }
 
