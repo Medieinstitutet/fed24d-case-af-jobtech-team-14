@@ -20,7 +20,7 @@ import {
 } from '@digi/arbetsformedlingen-react'
 import { DropdownBtn } from './DropdownBtn'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 type SearchBarProps = {
   onSearch: (searchText: string) => void
@@ -31,6 +31,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [searchText, setSearchText] = useState('')
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   return (
     <div className="search-panel">
@@ -60,7 +61,9 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
             }}
             onAfOnSubmitSearch={() => {
               onSearch(searchText)
-              navigate('/annonser')
+              if (location.pathname !== '/annonser') {
+                navigate('/annonser')
+              }
             }}
           ></DigiFormInputSearch>
           <DigiLayoutColumns
