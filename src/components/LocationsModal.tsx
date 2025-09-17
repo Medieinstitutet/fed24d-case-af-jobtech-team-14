@@ -44,9 +44,9 @@ export const LocationsModal = ({
   const [isToggled, setIsToggled] = useState(false)
   const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
 
-  console.log('stored-m', storedMunicipalities)
-  console.log('selected-r', selectedRegions)
-  console.log('indexed', indexedMunicipalities)
+  // console.log('stored-m', storedMunicipalities)
+  // console.log('selected-r', selectedRegions)
+  // console.log('indexed', indexedMunicipalities)
 
   return (
     <DigiLayoutColumns

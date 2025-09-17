@@ -1,9 +1,11 @@
+import { ImageBackground } from '../components/ImageBackground'
 import { SearchPanel } from '../components/SearcPanel'
 
 export const Home = () => {
   return (
     <>
-      <SearchPanel></SearchPanel>
+      <ImageBackground />
+      <SearchPanel />
     </>
   )
 }
