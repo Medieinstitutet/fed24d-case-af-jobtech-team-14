@@ -27,7 +27,7 @@ export const LatestSearchAndSavedAdsButtons = () => {
   }
 
   return (
-    <div>
+    <div className="button-container">
       <DigiLayoutColumns afElement={LayoutColumnsElement.DIV}>
         <JobListButton
           text="Senaste Sökningar"
@@ -47,7 +47,7 @@ export const LatestSearchAndSavedAdsButtons = () => {
         <DigiTypography afVariation={TypographyVariation.SMALL}>
           <ul className="saved-jobs-list">
             {saved.length === 0 ? (
-              <h3>Inga sparade annonser ännu.</h3>
+              <p>Inga sparade annonser ännu.</p>
             ) : (
               saved.map(job => (
                 <li className="unsave-button" key={job.id}>
@@ -74,9 +74,13 @@ export const LatestSearchAndSavedAdsButtons = () => {
       )}
 
       {activeList === 'searches' && (
-        <ul className="latest-searches-list">
-          <li>Din senaste sökning kommer visas här…</li>
-        </ul>
+        <DigiTypography afVariation={TypographyVariation.SMALL}>
+          <ul className="latest-searches-list">
+            <li>
+              <p>Din senaste sökning kommer visas här…</p>
+            </li>
+          </ul>
+        </DigiTypography>
       )}
     </div>
   )

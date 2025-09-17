@@ -26,7 +26,6 @@ const buildQueryString = (
   params.set('limit', '10')
   params.set('offset', '0')
 
-  // Justera nycklarna nedan om Jobtech-API:t använder andra namn
   selectedRegions.forEach(r => params.append('region', r))
   selectedMunicipalities.forEach(m => params.append('municipality', m))
   selectedFields.forEach(f => params.append('occupation-field', f))
@@ -110,7 +109,6 @@ export const Jobs = () => {
       setJobs(mapped)
     })()
     return () => ac.abort()
-    // Viktigt: filtren i dependencies!
   }, [
     query,
     selectedFields,

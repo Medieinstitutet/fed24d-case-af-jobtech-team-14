@@ -28,7 +28,6 @@ export const SearchPanel = () => {
     if (filters.regions) setSelectedRegions(filters.regions)
     if (filters.municipalities)
       setSelectedMunicipalities(filters.municipalities)
-    // Jobs triggar ny fetch tack vare dependencies (steg 2)
   }
 
   return (
