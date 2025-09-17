@@ -49,3 +49,17 @@
   height: 10px;
   background: var(--color-primary);
 }
+
+@media (max-width: 768px) {
+  .jd-grid {
+    grid-template-columns: 1fr;
+  }
+  .jd-left,
+  .jd-aside {
+    grid-column: 1;
+    margin: 0 25px 0 5px;
+  }
+  .button-save {
+    margin-right: 25px;
+  }
+}
