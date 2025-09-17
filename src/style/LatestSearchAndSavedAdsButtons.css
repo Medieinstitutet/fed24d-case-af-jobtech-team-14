@@ -5,3 +5,10 @@
   display: flex;
   justify-content: space-around;
 }
+
+.unsave-button {
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+}

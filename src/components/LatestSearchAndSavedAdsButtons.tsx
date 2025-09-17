@@ -1,16 +1,23 @@
 import {
+  DigiButton,
   DigiIconChevronDown,
   DigiIconClock,
   DigiIconHeart,
   DigiLayoutColumns,
+  DigiTypography,
 } from '@digi/arbetsformedlingen-react'
 import { JobListButton } from './JobListButton'
-import { LayoutColumnsElement } from '@digi/arbetsformedlingen'
+import {
+  ButtonSize,
+  ButtonVariation,
+  LayoutColumnsElement,
+  TypographyVariation,
+} from '@digi/arbetsformedlingen'
 import { useSavedJobs } from '../contexts/useSavedJobs'
 import { useState } from 'react'
 
 export const LatestSearchAndSavedAdsButtons = () => {
-  const { saved } = useSavedJobs()
+  const { saved, removeJob } = useSavedJobs()
   const [activeList, setActiveList] = useState<'saved' | 'searches' | null>(
     null,
   )
@@ -37,17 +44,33 @@ export const LatestSearchAndSavedAdsButtons = () => {
       </DigiLayoutColumns>
 
       {activeList === 'saved' && (
-        <ul className="saved-jobs-list">
-          {saved.length === 0 ? (
-            <li>Inga sparade annonser ännu.</li>
-          ) : (
-            saved.map(job => (
-              <li key={job.id}>
-                <a href={`/annons/${job.id}`}>{job.title}</a>
-              </li>
-            ))
-          )}
-        </ul>
+        <DigiTypography afVariation={TypographyVariation.SMALL}>
+          <ul className="saved-jobs-list">
+            {saved.length === 0 ? (
+              <h3>Inga sparade annonser ännu.</h3>
+            ) : (
+              saved.map(job => (
+                <li className="unsave-button" key={job.id}>
+                  <h3>
+                    <a href={`/annons/${job.id}`}>{job.title}</a>
+                  </h3>
+                  <DigiButton
+                    afSize={ButtonSize.SMALL}
+                    afVariation={ButtonVariation.FUNCTION}
+                    afFullWidth={true}
+                    onClick={e => {
+                      e.preventDefault() // så att inte länken triggas
+                      e.stopPropagation()
+                      removeJob(job.id)
+                    }}
+                  >
+                    Ta bort
+                  </DigiButton>
+                </li>
+              ))
+            )}
+          </ul>
+        </DigiTypography>
       )}
 
       {activeList === 'searches' && (
