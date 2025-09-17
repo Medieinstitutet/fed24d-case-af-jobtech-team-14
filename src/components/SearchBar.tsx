@@ -64,6 +64,10 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
               if (location.pathname !== '/annonser') {
                 navigate('/annonser')
               }
+              const inputEl = document.querySelector(
+                '.searchbar input',
+              ) as HTMLInputElement | null
+              inputEl?.blur()
             }}
           ></DigiFormInputSearch>
           <DigiLayoutColumns
