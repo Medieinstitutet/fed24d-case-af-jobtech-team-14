@@ -1,30 +1,44 @@
+// components/SearchPanel.tsx
 import { useContext } from 'react'
-import { SearchBar } from './SearchBar'
 import { SearchContext } from '../contexts/SearchContext'
 import { FilterContext } from '../contexts/FilterContext'
-import { getAds } from '../services/adsService'
+import { SearchBar } from './SearchBar'
 
 export const SearchPanel = () => {
-  const { setQuery, setAds } = useContext(SearchContext)
+  const { setQuery } = useContext(SearchContext)
   const {
     selectedFields,
+    setSelectedFields,
     selectedGroups,
+    setSelectedGroups,
     selectedRegions,
+    setSelectedRegions,
     selectedMunicipalities,
+    setSelectedMunicipalities,
   } = useContext(FilterContext)
 
-  const onSearch = async (searchText: string) => {
-    setQuery(searchText)
-    const foundAds = await getAds({
-      query: searchText,
-      selectedRegions,
-      selectedMunicipalities,
-      selectedFields,
-      selectedGroups,
-    })
-
-    setAds(foundAds)
+  const onFiltersChange = (filters: {
+    fields?: string[]
+    groups?: string[]
+    regions?: string[]
+    municipalities?: string[]
+  }) => {
+    if (filters.fields) setSelectedFields(filters.fields)
+    if (filters.groups) setSelectedGroups(filters.groups)
+    if (filters.regions) setSelectedRegions(filters.regions)
+    if (filters.municipalities)
+      setSelectedMunicipalities(filters.municipalities)
+    // Jobs triggar ny fetch tack vare dependencies (steg 2)
   }
 
-  return <SearchBar onSearch={onSearch} />
+  return (
+    <SearchBar
+      onSearch={(text: string) => setQuery(text.trim())}
+      selectedFields={selectedFields}
+      selectedGroups={selectedGroups}
+      selectedRegions={selectedRegions}
+      selectedMunicipalities={selectedMunicipalities}
+      onFiltersChange={onFiltersChange}
+    />
+  )
 }

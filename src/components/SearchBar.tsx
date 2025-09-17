@@ -24,6 +24,16 @@ import { useLocation, useNavigate } from 'react-router'
 
 type SearchBarProps = {
   onSearch: (searchText: string) => void
+  selectedFields?: string[]
+  selectedGroups?: string[]
+  selectedRegions?: string[]
+  selectedMunicipalities?: string[]
+  onFiltersChange?: (filters: {
+    fields?: string[]
+    groups?: string[]
+    regions?: string[]
+    municipalities?: string[]
+  }) => void
 }
 
 export const SearchBar = ({ onSearch }: SearchBarProps) => {
