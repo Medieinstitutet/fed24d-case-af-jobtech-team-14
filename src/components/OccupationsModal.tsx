@@ -149,6 +149,9 @@ export const OccupationModal = ({
                     selectedGroups.filter(id => !currentGroupsIds.includes(id)),
                   )
                   setSelectedFields(selectedFields.filter(f => f !== active))
+                  setIndexedGroups(
+                    indexedGroups.filter(item => !item.startsWith(active)),
+                  )
                 }}
               >
                 Rensa

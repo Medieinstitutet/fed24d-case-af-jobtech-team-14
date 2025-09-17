@@ -153,6 +153,11 @@ export const LocationsModal = ({
                     ),
                   )
                   setSelectedRegions(selectedRegions.filter(r => r !== active))
+                  setIndexedMunicipalities(
+                    indexedMunicipalities.filter(
+                      item => !item.startsWith(active),
+                    ),
+                  )
                 }}
               >
                 Rensa
