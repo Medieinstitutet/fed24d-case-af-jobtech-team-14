@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom'
 import './../../style/Header.css'
 import logo from './../../assets/logo/af-logo.png'
 import {
@@ -15,30 +16,33 @@ export default function Header() {
         afHideSystemName={true}
         afMenuButtonText="Meny"
       >
-        <a
+        {/* LOGO: byt <a> -> <Link> för SPA-navigering */}
+        <Link
+          to="/"
           slot="header-logo"
-          href="/"
           aria-label="Startsida"
           className="af-header__brand"
         >
           <img src={logo} alt="Platsbanken" className="logo-af" />
           <span className="af-header__brand-text">Platsbanken</span>
-        </a>
+        </Link>
 
+        {/* ACTIONS: interna länkar -> Link */}
         <div slot="header-content" className="af-header__actions">
-          <a href="/login" className="af-header__link">
+          <Link to="/login" className="af-header__link">
             Logga in
-          </a>
+          </Link>
           <span className="af-header__sep">|</span>
-          <a href="/languages" className="af-header__link">
+          <Link to="/languages" className="af-header__link">
             Språk
-          </a>
+          </Link>
           <span className="af-header__sep">|</span>
-          <a href="/search" className="af-header__link">
+          <Link to="/search" className="af-header__link">
             Sök
-          </a>
+          </Link>
         </div>
 
+        {/* NAV: kan vara Link eller NavLink för active-styling */}
         <div slot="header-navigation">
           <DigiHeaderNavigation
             afCloseButtonText="Stäng"
@@ -47,13 +51,13 @@ export default function Header() {
             className="button-menu"
           >
             <DigiHeaderNavigationItem>
-              <a href="/login">Logga in</a>
+              <NavLink to="/login">Logga in</NavLink>
             </DigiHeaderNavigationItem>
             <DigiHeaderNavigationItem>
-              <a href="/languages">Språk</a>
+              <NavLink to="/languages">Språk</NavLink>
             </DigiHeaderNavigationItem>
             <DigiHeaderNavigationItem>
-              <a href="/search">Sök</a>
+              <NavLink to="/search">Sök</NavLink>
             </DigiHeaderNavigationItem>
           </DigiHeaderNavigation>
         </div>
