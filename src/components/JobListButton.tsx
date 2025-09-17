@@ -5,12 +5,14 @@ export interface jobListButtonProps {
   text: string
   icon?: React.ReactNode
   iconSecondary?: React.ReactNode
+  onClick?: () => void
 }
 
 export const JobListButton = ({
   text,
   icon,
   iconSecondary,
+  onClick,
 }: jobListButtonProps) => {
   return (
     <>
@@ -19,6 +21,7 @@ export const JobListButton = ({
           afSize={ButtonSize.LARGE}
           afVariation={ButtonVariation.PRIMARY}
           afFullWidth={true}
+          onClick={onClick}
         >
           {icon}
           {text}
