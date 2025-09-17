@@ -1,7 +1,12 @@
 @import '../style/colors.css';
 
+.search-panel {
+  width: 100%;
+}
+
 .search-panel .block {
   --digi--layout-block--background--primary: var(--color-bg);
+  margin-bottom: 2rem;
 }
 
 .search-panel
@@ -203,6 +208,7 @@
 
 .search-panel .bevaka-btn,
 .search-panel .rensa-btn {
+  display: none;
   --digi--button--color--text--function--default: white;
   --digi--button--font-size--small: 1rem;
   --digi--button--color--icon--function--default: white;
@@ -217,6 +223,13 @@
   --digi--button--color--icon--function--hover: white;
   --digi--button--color--icon--function--active: white;
   text-decoration: underline;
+}
+
+@media (min-width: 450px) {
+  .search-panel .bevaka-btn,
+  .search-panel .rensa-btn {
+    display: block;
+  }
 }
 
 @media (min-width: 576px) {
