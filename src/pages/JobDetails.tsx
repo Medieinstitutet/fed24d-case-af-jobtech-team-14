@@ -66,7 +66,10 @@ export const JobDetails = () => {
             title: data.headline || 'Titel saknas',
             role: data.employer?.name || 'Arbetsgivare saknas',
             location: data?.workplace_addresses?.[0]?.city || 'Plats saknas',
-            publication_date: data.published_at?.slice(0, 10) || '',
+            publication_date:
+              data.published_at?.slice(0, 10) ||
+              data.last_publication_date?.slice(0, 10) ||
+              '',
             description: data.description?.text || '',
             application_email: data.application_details?.email || '',
             application_url: data.application_details?.url || '',
@@ -104,7 +107,6 @@ export const JobDetails = () => {
           afVerticalPadding
           afMaxWidth={LayoutContainerMaxWidth.WIDTH_1400}
         >
-          {/* Topp-rad */}
           <DigiLayoutColumns afVariation={LayoutColumnsVariation.TWO}>
             <div
               className="button-back"
@@ -131,10 +133,11 @@ export const JobDetails = () => {
             </div>
           </DigiLayoutColumns>
 
-          {/* Huvudlayout */}
           <div className="jd-grid">
-            <DigiLayoutColumns afVariation={LayoutColumnsVariation.TWO}>
-              {/* Vänster kolumn */}
+            <DigiLayoutColumns
+              afVariation={LayoutColumnsVariation.TWO}
+              className="jd-columns"
+            >
               <section className="jd-left">
                 <DigiInfoCard
                   className="job-card"
@@ -163,40 +166,35 @@ export const JobDetails = () => {
                   afSize={InfoCardSize.STANDARD}
                 >
                   <div className="button-job">
-                    {job.application_url ? (
-                      <a
-                        href={job.application_url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <DigiButton afVariation={ButtonVariation.PRIMARY}>
-                          Ansök jobbet
-                        </DigiButton>
-                      </a>
-                    ) : (
-                      <DigiButton
-                        afVariation={ButtonVariation.PRIMARY}
-                        {...({ disabled: true } as unknown as Record<
-                          string,
-                          unknown
-                        >)}
-                      >
-                        Ansök jobbet
-                      </DigiButton>
-                    )}
+                    <DigiButton
+                      afVariation={ButtonVariation.PRIMARY}
+                      onClick={() => {
+                        if (job.application_url) {
+                          window.open(
+                            job.application_url,
+                            '_blank',
+                            'noopener,noreferrer',
+                          )
+                        }
+                      }}
+                    >
+                      Ansök jobbet
+                    </DigiButton>
                   </div>
 
-                  <DigiTypography
-                    afVariation={TypographyVariation.SMALL}
-                    style={{ marginTop: 8, textAlign: 'center' }}
-                  >
-                    {job.application_email
-                      ? `Kontakt: ${job.application_email}`
-                      : 'Kontaktuppgift saknas'}
-                  </DigiTypography>
+                  <div style={{ textAlign: 'center' }}>
+                    <DigiTypography afVariation={TypographyVariation.SMALL}>
+                      {job.application_email
+                        ? `Kontakt: ${job.application_email}`
+                        : 'Kontaktuppgift saknas'}
+                      <br />
+                      {job.application_deadline
+                        ? `Sista ansökningsdag: ${job.application_deadline}`
+                        : 'Ingen sista ansökningsdag angiven'}
+                    </DigiTypography>
+                  </div>
                 </DigiInfoCard>
 
-                {/* Om anställningen */}
                 <DigiInfoCard
                   afHeading="Om anställningen"
                   afHeadingLevel={InfoCardHeadingLevel.H2}
