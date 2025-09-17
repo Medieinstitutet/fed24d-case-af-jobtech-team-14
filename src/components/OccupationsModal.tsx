@@ -38,12 +38,13 @@ export const OccupationModal = ({
     setSelectedFields,
     selectedGroups,
     setSelectedGroups,
+    indexedGroups,
+    setIndexedGroups,
   } = useContext<FilterContextType>(FilterContext)
 
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
   const [storedGroups, setStoredGroups] = useState<string[]>([])
-  const [indexedGroups, setIndexedGroups] = useState<string[]>([])
 
   return (
     <DigiLayoutColumns
@@ -81,9 +82,18 @@ export const OccupationModal = ({
                   ),
                 )
                 .map(occ => {
+                  const isSomeSelected =
+                    indexedGroups.some(item =>
+                      item.startsWith(occ['taxonomy/id']),
+                    ) || selectedFields.includes(occ['taxonomy/id'])
                   return (
                     <DigiButton
                       className="option-btn"
+                      style={
+                        isSomeSelected
+                          ? { backgroundColor: 'var(--color-card-dark)' }
+                          : {}
+                      }
                       afSize={ButtonSize.SMALL}
                       afVariation={ButtonVariation.FUNCTION}
                       afFullWidth={false}
