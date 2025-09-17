@@ -4,13 +4,12 @@
 }
 .button-back {
   --digi--border-style--primary: var(--color-bg);
-  --digi--button--color--background--secondary--default: var(--color-bg);
-  padding: 5px;
+  --digi--color--background--primary: var(--color-bg) padding: 0 0 10px 5px;
 }
 
 .button-save {
   --digi--color--background--inverted-1: var(--color-primary);
-  margin: 1rem;
+  margin: 0 5px 5px 0;
 }
 
 .button-job {
@@ -49,4 +48,18 @@
   top: -1px;
   height: 10px;
   background: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .jd-grid {
+    grid-template-columns: 1fr;
+  }
+  .jd-left,
+  .jd-aside {
+    grid-column: 1;
+    margin: 0 25px 0 5px;
+  }
+  .button-save {
+    margin-right: 25px;
+  }
 }
