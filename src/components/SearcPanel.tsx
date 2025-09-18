@@ -25,7 +25,6 @@ export const SearchPanel = () => {
 
   const onSearch = async (searchText: string) => {
     const q = searchText.trim() // 🆕 trimma
-    if (!q) return // 🆕 avbryt om tom
 
     setQuery(q)
 
