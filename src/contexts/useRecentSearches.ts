@@ -17,5 +17,10 @@ export const useRecentSearches = () => {
     setSearches(prev => [query, ...prev.filter(q => q !== query)].slice(0, 5))
   }
 
-  return { searches, addSearch }
+  const clearSearches = () => {
+    setSearches([])
+    localStorage.removeItem(STORAGE_KEY)
+  }
+
+  return { searches, addSearch, clearSearches }
 }
