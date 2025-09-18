@@ -2,10 +2,16 @@
 
 .search-panel {
   width: 100%;
+  /* margin-bottom: 40rem; */
 }
 
 .bg-image-wrap {
   display: none;
+  overflow: hidden;
+}
+
+.bg-image-wrap img {
+  object-fit: cover;
 }
 
 .search-panel .block {
@@ -127,6 +133,7 @@
   top: 14.8rem;
   left: 50%;
   transform: translate(-50%);
+  z-index: 1000;
 }
 
 .search-panel .dropdown-wrap {
