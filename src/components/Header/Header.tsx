@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router'
 import './../../style/Header.css'
 import logo from './../../assets/logo/af-logo.png'
 import {
@@ -16,7 +16,6 @@ export default function Header() {
         afHideSystemName={true}
         afMenuButtonText="Meny"
       >
-        {/* LOGO: byt <a> -> <Link> för SPA-navigering */}
         <Link
           to="/"
           slot="header-logo"
@@ -27,7 +26,6 @@ export default function Header() {
           <span className="af-header__brand-text">Platsbanken</span>
         </Link>
 
-        {/* ACTIONS: interna länkar -> Link */}
         <div slot="header-content" className="af-header__actions">
           <Link to="/login" className="af-header__link">
             Logga in
@@ -42,7 +40,6 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* NAV: kan vara Link eller NavLink för active-styling */}
         <div slot="header-navigation">
           <DigiHeaderNavigation
             afCloseButtonText="Stäng"
