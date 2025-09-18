@@ -36,14 +36,17 @@ export const LocationsModal = ({
     setSelectedRegions,
     selectedMunicipalities,
     setSelectedMunicipalities,
+    indexedMunicipalities,
+    setIndexedMunicipalities,
   } = useContext<FilterContextType>(FilterContext)
 
   const [active, setActive] = useState('')
   const [isToggled, setIsToggled] = useState(false)
   const [storedMunicipalities, setStoredMunicipalities] = useState<string[]>([])
-  const [indexedMunicipalities, setIndexedMunicipalites] = useState<string[]>(
-    [],
-  )
+
+  // console.log('stored-m', storedMunicipalities)
+  // console.log('selected-r', selectedRegions)
+  // console.log('indexed', indexedMunicipalities)
 
   return (
     <DigiLayoutColumns
@@ -65,7 +68,7 @@ export const LocationsModal = ({
                 onAfOnClick={() => {
                   setSelectedRegions([])
                   setSelectedMunicipalities([])
-                  setIndexedMunicipalites([])
+                  setIndexedMunicipalities([])
                   setStoredMunicipalities([])
                 }}
               >
@@ -81,9 +84,19 @@ export const LocationsModal = ({
                   ),
                 )
                 .map(r => {
+                  const isSomeSelected =
+                    indexedMunicipalities.some(item =>
+                      item.startsWith(r['taxonomy/id']),
+                    ) || selectedRegions.includes(r['taxonomy/id'])
+
                   return (
                     <DigiButton
-                      className="option-btn"
+                      className={`option-btn`}
+                      style={
+                        isSomeSelected
+                          ? { backgroundColor: 'var(--color-card-dark)' }
+                          : {}
+                      }
                       afSize={ButtonSize.SMALL}
                       afVariation={ButtonVariation.FUNCTION}
                       afFullWidth={false}
@@ -140,6 +153,11 @@ export const LocationsModal = ({
                     ),
                   )
                   setSelectedRegions(selectedRegions.filter(r => r !== active))
+                  setIndexedMunicipalities(
+                    indexedMunicipalities.filter(
+                      item => !item.startsWith(active),
+                    ),
+                  )
                 }}
               >
                 Rensa
@@ -214,7 +232,7 @@ export const LocationsModal = ({
                         const isChecked = (e.target as HTMLInputElement).checked
                         const id = m['taxonomy/id']
                         if (isChecked) {
-                          setIndexedMunicipalites(prev =>
+                          setIndexedMunicipalities(prev =>
                             Array.from(new Set([...prev, `${active}:${id}`])),
                           )
 
@@ -223,7 +241,7 @@ export const LocationsModal = ({
                             id,
                           ])
                         } else {
-                          setIndexedMunicipalites(
+                          setIndexedMunicipalities(
                             indexedMunicipalities.filter(
                               item => item !== `${active}:${id}`,
                             ),

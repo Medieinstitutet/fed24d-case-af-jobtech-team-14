@@ -13,6 +13,10 @@ export const Layout = () => {
     string[]
   >([])
   const [selectedRegions, setSelectedRegions] = useState<string[]>([])
+  const [indexedMunicipalities, setIndexedMunicipalities] = useState<string[]>(
+    [],
+  )
+  const [indexedGroups, setIndexedGroups] = useState<string[]>([])
 
   const [query, setQuery] = useState('')
 
@@ -29,6 +33,10 @@ export const Layout = () => {
         setSelectedMunicipalities,
         selectedRegions,
         setSelectedRegions,
+        indexedMunicipalities,
+        setIndexedMunicipalities,
+        indexedGroups,
+        setIndexedGroups,
       }}
     >
       <SavedJobsProvider>

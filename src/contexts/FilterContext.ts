@@ -9,6 +9,10 @@ export type FilterContextType = {
   setSelectedRegions: React.Dispatch<React.SetStateAction<string[]>>
   selectedMunicipalities: string[]
   setSelectedMunicipalities: React.Dispatch<React.SetStateAction<string[]>>
+  indexedMunicipalities: string[]
+  setIndexedMunicipalities: React.Dispatch<React.SetStateAction<string[]>>
+  indexedGroups: string[]
+  setIndexedGroups: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 export const FilterContext = createContext<FilterContextType>({
@@ -20,4 +24,8 @@ export const FilterContext = createContext<FilterContextType>({
   setSelectedRegions: () => {},
   selectedMunicipalities: [],
   setSelectedMunicipalities: () => {},
+  indexedMunicipalities: [],
+  setIndexedMunicipalities: () => {},
+  indexedGroups: [],
+  setIndexedGroups: () => {},
 })
