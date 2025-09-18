@@ -22,7 +22,7 @@ export const LatestSearchAndSavedAdsButtons = () => {
   const [activeList, setActiveList] = useState<'saved' | 'searches' | null>(
     null,
   )
-  const { searches } = useRecentSearches()
+  const { searches, clearSearches } = useRecentSearches()
 
   const toggleList = (list: 'saved' | 'searches') => {
     setActiveList(prev => (prev === list ? null : list))
@@ -79,13 +79,25 @@ export const LatestSearchAndSavedAdsButtons = () => {
 
       <DigiTypography afVariation={TypographyVariation.SMALL}>
         {activeList === 'searches' && (
-          <ul className="latest-searches-list">
-            {searches.length === 0 ? (
-              <li>Din senaste sökning kommer visas här…</li>
-            ) : (
-              searches.map((s, i) => <li key={s || i}>{s}</li>)
-            )}
-          </ul>
+          <>
+            <div>
+              <DigiButton
+                afSize={ButtonSize.SMALL}
+                afVariation={ButtonVariation.FUNCTION}
+                onClick={clearSearches}
+              >
+                Rensa alla
+              </DigiButton>
+            </div>
+
+            <ul className="latest-searches-list">
+              {searches.length === 0 ? (
+                <li>Din senaste sökning kommer visas här…</li>
+              ) : (
+                searches.map((s, i) => <li key={s || i}>{s}</li>)
+              )}
+            </ul>
+          </>
         )}
       </DigiTypography>
     </div>
