@@ -4,6 +4,7 @@ import { FilterContext } from '../contexts/FilterContext'
 import { SavedJobsProvider } from '../contexts/SavedJobsProvider'
 import Header from '../components/Header/Header'
 import { SearchContext } from '../contexts/SearchContext'
+import { RecentSearchesProvider } from '../contexts/RecentSearchesProvider'
 
 export const Layout = () => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
@@ -40,13 +41,15 @@ export const Layout = () => {
       }}
     >
       <SavedJobsProvider>
-        <SearchContext.Provider value={{ query, setQuery, ads, setAds }}>
-          <Header />
-          <main>
-            <Outlet />
-          </main>
-          <footer></footer>
-        </SearchContext.Provider>
+        <RecentSearchesProvider>
+          <SearchContext.Provider value={{ query, setQuery, ads, setAds }}>
+            <Header />
+            <main>
+              <Outlet />
+            </main>
+            <footer></footer>
+          </SearchContext.Provider>
+        </RecentSearchesProvider>
       </SavedJobsProvider>
     </FilterContext.Provider>
   )

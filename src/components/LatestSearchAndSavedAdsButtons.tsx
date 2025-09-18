@@ -15,22 +15,26 @@ import {
 } from '@digi/arbetsformedlingen'
 import { useSavedJobs } from '../contexts/useSavedJobs'
 import { useState } from 'react'
+import { useRecentSearches } from '../contexts/useRecentSearches'
 
 export const LatestSearchAndSavedAdsButtons = () => {
   const { saved, removeJob } = useSavedJobs()
   const [activeList, setActiveList] = useState<'saved' | 'searches' | null>(
     null,
   )
+  const { searches, clearSearches } = useRecentSearches()
 
   const toggleList = (list: 'saved' | 'searches') => {
     setActiveList(prev => (prev === list ? null : list))
   }
 
+  // if (!searches.length) return null
+
   return (
     <div>
       <DigiLayoutColumns afElement={LayoutColumnsElement.DIV}>
         <JobListButton
-          text="Senaste Sökningar"
+          text="Senaste Sök-ord"
           icon={<DigiIconChevronDown slot="icon-secondary" />}
           iconSecondary={<DigiIconClock slot="icon" />}
           onClick={() => toggleList('searches')}
@@ -47,7 +51,7 @@ export const LatestSearchAndSavedAdsButtons = () => {
         <DigiTypography afVariation={TypographyVariation.SMALL}>
           <ul className="saved-jobs-list">
             {saved.length === 0 ? (
-              <h3>Inga sparade annonser ännu.</h3>
+              <p>Inga sparade annonser ännu.</p>
             ) : (
               saved.map(job => (
                 <li className="unsave-button" key={job.id}>
@@ -73,11 +77,29 @@ export const LatestSearchAndSavedAdsButtons = () => {
         </DigiTypography>
       )}
 
-      {activeList === 'searches' && (
-        <ul className="latest-searches-list">
-          <li>Din senaste sökning kommer visas här…</li>
-        </ul>
-      )}
+      <DigiTypography afVariation={TypographyVariation.SMALL}>
+        {activeList === 'searches' && (
+          <>
+            <div>
+              <DigiButton
+                afSize={ButtonSize.SMALL}
+                afVariation={ButtonVariation.FUNCTION}
+                onClick={clearSearches}
+              >
+                Rensa alla
+              </DigiButton>
+            </div>
+
+            <ul className="latest-searches-list">
+              {searches.length === 0 ? (
+                <li>Din senaste sökning kommer visas här…</li>
+              ) : (
+                searches.map((s, i) => <li key={s || i}>{s}</li>)
+              )}
+            </ul>
+          </>
+        )}
+      </DigiTypography>
     </div>
   )
 }
