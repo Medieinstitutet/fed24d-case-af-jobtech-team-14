@@ -71,6 +71,23 @@
   background-color: #b4a60c;
 }
 
+.search-panel .special-btn {
+  --digi--button--width: 6.5rem;
+  --digi--button--icon--spacing: 0.5rem;
+  --digi--button--justify-content--default: center;
+  --digi--button--padding--medium: 0.5rem 0.75rem;
+  --digi--button--justify-content--default: flex-end;
+}
+
+.search-panel .ort-label {
+  --digi--button--icon--spacing: 0.6rem;
+  letter-spacing: 1.5px;
+}
+
+.search-panel .yrke-label {
+  letter-spacing: 0.75px;
+}
+
 .search-panel .btn-wrap .digi-button.sc-digi-button[aria-pressed='true'],
 .search-panel .btn-wrap .digi-button.sc-digi-button:hover {
   background: white;
@@ -117,6 +134,21 @@
   flex-direction: column;
   padding: 1rem 0.5rem;
   width: 100%;
+}
+
+.search-panel .circle-active {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.search-panel .circle-hidden {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: transparent;
 }
 
 .search-panel .hidden {
@@ -193,10 +225,6 @@
   padding-top: 1rem;
 }
 
-.search-panel .btn-wrap {
-  width: max-content;
-}
-
 .option-wrap {
   padding-top: 0.5rem;
 }
@@ -229,7 +257,7 @@
   text-decoration: underline;
 }
 
-@media (min-width: 450px) {
+@media (min-width: 475px) {
   .search-panel .bevaka-btn,
   .search-panel .rensa-btn {
     display: block;

@@ -1,4 +1,4 @@
-// import '../style/SearchPanel.css'
+import '../style/SearchPanel.css'
 
 import { ButtonSize, ButtonVariation } from '@digi/arbetsformedlingen'
 import {
@@ -12,10 +12,16 @@ import { Locations } from './Locations'
 type ButtonProps = {
   label: string
   isOpen: boolean
+  isSelected: boolean
   onToggle: () => void
 }
 
-export const DropdownBtn = ({ label, isOpen, onToggle }: ButtonProps) => {
+export const DropdownBtn = ({
+  label,
+  isOpen,
+  onToggle,
+  isSelected,
+}: ButtonProps) => {
   return (
     <div className="btn-wrap">
       <DigiButton
@@ -23,7 +29,12 @@ export const DropdownBtn = ({ label, isOpen, onToggle }: ButtonProps) => {
         afVariation={ButtonVariation.SECONDARY}
         onAfOnClick={onToggle}
         afAriaPressed={isOpen}
+        className={`special-btn ${label === 'Ort' ? 'ort-label' : 'yrke-label'}`}
       >
+        <span
+          className={isSelected ? 'circle-active' : 'circle-hidden'}
+          slot="icon"
+        ></span>
         {label}
         <DigiIconChevronUp
           slot="icon-secondary"

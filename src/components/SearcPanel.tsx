@@ -15,11 +15,16 @@ export const SearchPanel = () => {
     selectedMunicipalities,
   } = useContext(FilterContext)
 
+  const isSomeRegionSelected = [selectedRegions, selectedMunicipalities].some(
+    item => item.length > 0,
+  )
+  const isSomeOccupationSelected = [selectedFields, selectedGroups].some(
+    item => item.length > 0,
+  )
   const { addSearch } = useRecentSearches() // 🆕
 
   const onSearch = async (searchText: string) => {
     const q = searchText.trim() // 🆕 trimma
-    if (!q) return // 🆕 avbryt om tom
 
     setQuery(q)
 
@@ -38,5 +43,11 @@ export const SearchPanel = () => {
     }
   }
 
-  return <SearchBar onSearch={onSearch} />
+  return (
+    <SearchBar
+      onSearch={onSearch}
+      isSomeOccupationSelected={isSomeOccupationSelected}
+      isSomeRegionSelected={isSomeRegionSelected}
+    />
+  )
 }

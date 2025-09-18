@@ -25,9 +25,15 @@ import { useRecentSearches } from '../contexts/useRecentSearches'
 
 type SearchBarProps = {
   onSearch: (searchText: string) => void
+  isSomeRegionSelected: boolean
+  isSomeOccupationSelected: boolean
 }
 
-export const SearchBar = ({ onSearch }: SearchBarProps) => {
+export const SearchBar = ({
+  onSearch,
+  isSomeOccupationSelected,
+  isSomeRegionSelected,
+}: SearchBarProps) => {
   const [openBtn, setOpenBtn] = useState<string | null>(null)
   const [searchText, setSearchText] = useState('')
   const { clearSearches } = useRecentSearches()
@@ -82,11 +88,13 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
               label="Ort"
               isOpen={openBtn === 'btn2'}
               onToggle={() => setOpenBtn(openBtn === 'btn2' ? null : 'btn2')}
+              isSelected={isSomeRegionSelected}
             />
             <DropdownBtn
               label="Yrke"
               isOpen={openBtn === 'btn1'}
               onToggle={() => setOpenBtn(openBtn === 'btn1' ? null : 'btn1')}
+              isSelected={isSomeOccupationSelected}
             />
 
             {/* <DropdownBtn
