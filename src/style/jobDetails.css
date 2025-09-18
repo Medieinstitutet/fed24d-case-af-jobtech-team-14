@@ -1,6 +1,5 @@
 .job-details-scoped {
   background-color: var(--color-bg);
-  width: 100vw;
 }
 .button-back {
   --digi--border-style--primary: var(--color-bg);
