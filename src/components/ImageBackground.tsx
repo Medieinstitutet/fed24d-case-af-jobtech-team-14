@@ -3,19 +3,11 @@ import { useLocation } from 'react-router'
 import imageOne from '../assets/image-1.jpg'
 import imageTwo from '../assets/image-2.jpg'
 import imageThree from '../assets/image-3.jpg'
-import imageFour from '../assets/image-4.jpg'
-import imageFive from '../assets/image-5.jpg'
 import imageSix from '../assets/image-6.jpg'
 // import { LayoutBlockVariation } from '@digi/arbetsformedlingen'
+import '../style/SearchPanel.css'
 
-const imagePool = [
-  imageOne,
-  imageTwo,
-  imageThree,
-  imageFour,
-  imageFive,
-  imageSix,
-]
+const imagePool = [imageOne, imageTwo, imageThree, imageSix]
 
 export const ImageBackground = () => {
   const location = useLocation()

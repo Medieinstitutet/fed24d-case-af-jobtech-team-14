@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.bg-image-wrap {
+  display: none;
+}
+
 .search-panel .block {
   --digi--layout-block--background--primary: var(--color-bg);
   margin-bottom: 2rem;
@@ -253,6 +257,10 @@
   .search-panel .dropdown-layout {
     left: 0;
     transform: translate(0);
+  }
+
+  .bg-image-wrap {
+    display: block;
   }
 
   .dropdown-form {

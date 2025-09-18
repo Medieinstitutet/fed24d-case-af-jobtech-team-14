@@ -68,6 +68,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
                 '.searchbar input',
               ) as HTMLInputElement | null
               inputEl?.blur()
+              setOpenBtn(null)
             }}
           ></DigiFormInputSearch>
           <DigiLayoutColumns
