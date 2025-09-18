@@ -21,6 +21,7 @@ import {
 import { DropdownBtn } from './DropdownBtn'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
+import { useRecentSearches } from '../contexts/useRecentSearches'
 
 type SearchBarProps = {
   onSearch: (searchText: string) => void
@@ -35,6 +36,7 @@ export const SearchBar = ({
 }: SearchBarProps) => {
   const [openBtn, setOpenBtn] = useState<string | null>(null)
   const [searchText, setSearchText] = useState('')
+  const { clearSearches } = useRecentSearches()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -115,6 +117,7 @@ export const SearchBar = ({
               afSize={ButtonSize.SMALL}
               afVariation={ButtonVariation.FUNCTION}
               afFullWidth={false}
+              onClick={clearSearches}
             >
               <DigiIconX slot="icon" />
               Rensa
