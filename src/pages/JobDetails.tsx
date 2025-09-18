@@ -19,20 +19,7 @@ import {
   DigiTypography,
 } from '@digi/arbetsformedlingen-react'
 import type { IJob } from '../models/IJob'
-
-const SAVED_KEY = 'savedJobIds'
-
-function getSavedIds(): number[] {
-  try {
-    return JSON.parse(localStorage.getItem(SAVED_KEY) || '[]') as number[]
-  } catch {
-    return []
-  }
-}
-
-function setSavedIds(ids: number[]) {
-  localStorage.setItem(SAVED_KEY, JSON.stringify(ids))
-}
+import { useSavedJobs } from '../contexts/useSavedJobs'
 
 export const JobDetails = () => {
   const navigate = useNavigate()
@@ -40,15 +27,8 @@ export const JobDetails = () => {
   const location = useLocation() as { state?: { job?: IJob } }
 
   const [job, setJob] = useState<IJob | null>(location.state?.job || null)
-
-  const [isSaved, setIsSaved] = useState(false)
-
-  useEffect(() => {
-    if (job?.id) {
-      const saved = new Set(getSavedIds())
-      setIsSaved(saved.has(job.id))
-    }
-  }, [job?.id])
+  const { isSaved, saveJob, removeJob } = useSavedJobs()
+  const saved = job?.id ? isSaved(job.id) : false
 
   useEffect(() => {
     if (!job && id) {
@@ -88,15 +68,11 @@ export const JobDetails = () => {
 
   function handleToggleSave() {
     if (!job?.id) return
-    const saved = new Set(getSavedIds())
-    if (saved.has(job.id)) {
-      saved.delete(job.id)
-      setIsSaved(false)
+    if (isSaved(job.id)) {
+      removeJob(job.id)
     } else {
-      saved.add(job.id)
-      setIsSaved(true)
+      saveJob({ id: job.id, title: job.title })
     }
-    setSavedIds(Array.from(saved))
   }
 
   return (
@@ -126,9 +102,9 @@ export const JobDetails = () => {
               <DigiButton
                 afVariation={ButtonVariation.PRIMARY}
                 onClick={handleToggleSave}
-                aria-pressed={isSaved}
+                aria-pressed={saved}
               >
-                {isSaved ? 'Sparad' : 'Spara annons'}
+                {saved ? 'Sparad' : 'Spara annons'}
               </DigiButton>
             </div>
           </DigiLayoutColumns>
