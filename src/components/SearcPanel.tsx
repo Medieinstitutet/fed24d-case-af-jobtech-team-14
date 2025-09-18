@@ -3,6 +3,7 @@ import { SearchBar } from './SearchBar'
 import { SearchContext } from '../contexts/SearchContext'
 import { FilterContext } from '../contexts/FilterContext'
 import { getAds } from '../services/adsService'
+import { useRecentSearches } from '../contexts/useRecentSearches'
 
 export const SearchPanel = () => {
   const { setQuery, setAds } = useContext(SearchContext)
@@ -12,6 +13,8 @@ export const SearchPanel = () => {
     selectedRegions,
     selectedMunicipalities,
   } = useContext(FilterContext)
+
+  const { addSearch } = useRecentSearches()
 
   const onSearch = async (searchText: string) => {
     setQuery(searchText)
@@ -24,6 +27,10 @@ export const SearchPanel = () => {
     })
 
     setAds(foundAds)
+
+    if (foundAds?.hits?.length > 0) {
+      addSearch(searchText)
+    }
   }
 
   return <SearchBar onSearch={onSearch} />
