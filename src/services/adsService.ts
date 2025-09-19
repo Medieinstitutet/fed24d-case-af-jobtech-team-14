@@ -37,12 +37,21 @@ export const getAds = async ({
       : [selectedGroups]
   }
 
-  const res = await axios.get('https://jobsearch.api.jobtechdev.se/search', {
-    params,
-    paramsSerializer: {
-      indexes: null,
-    },
-  })
+  try {
+    const res = await axios.get('https://jobsearch.api.jobtechdev.se/search', {
+      params,
+      paramsSerializer: {
+        indexes: null,
+      },
+    })
 
-  return res.data
+    return res.data
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      console.error('Axios error:', err.message, err.response?.data)
+    } else {
+      console.error('Unexpected error:', err)
+    }
+    throw err
+  }
 }
