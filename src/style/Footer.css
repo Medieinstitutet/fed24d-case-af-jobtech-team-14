@@ -1,0 +1,25 @@
+a.logo-link {
+  --digi--color--text--link-visited: white;
+  text-decoration: none;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.sc-digi-layout-block-h .digi-layout-block--profile.sc-digi-layout-block {
+  --digi--layout-block--background--profile: var(--color-primary);
+  width: 100%;
+}
+
+footer {
+  position: relative;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .sc-digi-footer-h .digi-footer__content-bottom.sc-digi-footer {
+    justify-content: space-between;
+  }
+}

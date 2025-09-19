@@ -5,6 +5,7 @@ import { SavedJobsProvider } from '../contexts/SavedJobsProvider'
 import Header from '../components/Header/Header'
 import { SearchContext } from '../contexts/SearchContext'
 import { RecentSearchesProvider } from '../contexts/RecentSearchesProvider'
+import { Footer } from '../components/Footer'
 
 export const Layout = () => {
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
@@ -47,7 +48,7 @@ export const Layout = () => {
             <main>
               <Outlet />
             </main>
-            <footer></footer>
+            <Footer />
           </SearchContext.Provider>
         </RecentSearchesProvider>
       </SavedJobsProvider>
